@@ -7,7 +7,7 @@ class Program
 {
     private const int _alphabetSize = 65536;
 
-    static (string, int) encode(string text)
+    static (string, int) Encode(string text)
     {
         var rotations = new string[text.Length];
         for (int i = 0; i < rotations.Length; ++i)
@@ -32,7 +32,7 @@ class Program
         return (result.ToString(), lineEndNumber);
     }
 
-    static string decode(string text, int matrixIndex)
+    static string Decode(string text, int matrixIndex)
     {
         var characterFrequencies = new int[_alphabetSize];
         for (int i = 0; i < text.Length; ++i)
@@ -91,7 +91,7 @@ class Program
                         textForEncode = Console.ReadLine();
                     }
 
-                    var resultEncode = encode(textForEncode);
+                    var resultEncode = Encode(textForEncode);
                     Console.WriteLine($"Converted text: {resultEncode.Item1}\nLine end number: {resultEncode.Item2}");
                     Console.Write("Don't want to see the reverse transformation? (Enter DECODE): ");
                     break;
@@ -117,7 +117,7 @@ class Program
                         Console.Write("Try again: ");
                     }
 
-                    var resultDecode = decode(textForDecode, indexMatrix);
+                    var resultDecode = Decode(textForDecode, indexMatrix);
 
                     Console.WriteLine($"The original line looked like this: {resultDecode}");
                     Console.Write("Do you want to encode a text? (Enter ENCODE): ");
