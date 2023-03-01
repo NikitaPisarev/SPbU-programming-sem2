@@ -3,11 +3,11 @@
 using System;
 using System.Text;
 
-class Program
+public class Program
 {
     private const int _alphabetSize = 65536;
 
-    static (string, int) Encode(string text)
+    public static (string, int) Encode(string text)
     {
         var rotations = new string[text.Length];
         for (int i = 0; i < rotations.Length; ++i)
@@ -32,8 +32,13 @@ class Program
         return (result.ToString(), lineEndNumber);
     }
 
-    static string Decode(string text, int matrixIndex)
+    public static string Decode(string text, int matrixIndex)
     {
+        if (text.Length == 0)
+        {
+            throw new ArgumentException("Text cannot be empty.");
+        }
+
         var characterFrequencies = new int[_alphabetSize];
         for (int i = 0; i < text.Length; ++i)
         {
