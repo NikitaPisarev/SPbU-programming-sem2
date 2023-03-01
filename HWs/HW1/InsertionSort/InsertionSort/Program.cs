@@ -2,7 +2,7 @@ namespace InsertionSort;
 
 using System;
 
-class Program
+public class Program
 {
     static void PrintArray(int[] array)
     {
@@ -21,7 +21,7 @@ class Program
         secondElement = temp;
     }
 
-    static void SortByInsertionSort(int[] array)
+    public static void SortByInsertionSort(int[] array)
     {
         for (int i = 1; i < array.Length; ++i)
         {

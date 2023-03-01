@@ -10,7 +10,7 @@ public class Tests
 
         var actual = BWT.Program.Encode(originalString);
 
-        Assert.AreEqual(expected, actual);
+        Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -21,7 +21,7 @@ public class Tests
 
         var actual = BWT.Program.Encode(originalString);
 
-        Assert.AreEqual(expected, actual);
+        Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -33,7 +33,7 @@ public class Tests
 
         var actual = BWT.Program.Decode(originalString, originalNumber);
 
-        Assert.AreEqual(expectedString, actual);
+        Assert.That(actual, Is.EqualTo(expectedString));
     }
 
     [Test]
