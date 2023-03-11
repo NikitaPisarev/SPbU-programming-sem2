@@ -67,7 +67,7 @@ internal class StackCalculator
         }
 
         string operations = "+-*/";
-        foreach (var element in expression.Split(" "))
+        foreach (var element in expression.Split(" ", StringSplitOptions.RemoveEmptyEntries))
         {
             if (operations.Contains(element))
             {
@@ -75,7 +75,12 @@ internal class StackCalculator
             }
             else
             {
-                stack.Push(double.Parse(element));
+                double number = 0;
+                if (!double.TryParse(element, out number))
+                {
+                    throw new ArgumentException("Incorrect expression.");
+                }
+                stack.Push(number);
             }
         }
 
