@@ -25,12 +25,13 @@ public class Tests
     [TestCaseSource(nameof(Stacks))]
     public void CalculateExpression_FractionalNumbers_CorrectAnswerReturned(StackCalculator stackCalculator)
     {
-        var expression = "10,2 20,4 + 5 * 0 -";
+        var expression = "10.2 20.4 + 5 * 0 -";
         var expected = 153;
+        var delta = 0.001;
 
         var actual = stackCalculator.CalculateExpression(expression);
 
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(Math.Abs(expected - actual) < delta);
     }
 
     [TestCaseSource(nameof(Stacks))]
