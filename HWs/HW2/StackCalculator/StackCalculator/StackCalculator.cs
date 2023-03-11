@@ -36,7 +36,7 @@ internal class StackCalculator
                 break;
 
             case "-":
-                stack.Push(firstElement - secondElement);
+                stack.Push(secondElement - firstElement);
                 break;
 
             case "*":
@@ -58,12 +58,12 @@ internal class StackCalculator
     {
         if (expression == null)
         {
-            throw new ArgumentNullException(nameof(expression), "can't be null");
+            throw new ArgumentNullException(nameof(expression), "can't be null.");
         }
 
         if (expression == string.Empty)
         {
-            throw new ArgumentException(nameof(expression), "can't be empty");
+            throw new ArgumentException(nameof(expression), "can't be empty.");
         }
 
         string operations = "+-*/";

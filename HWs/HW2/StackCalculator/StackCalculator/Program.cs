@@ -1,6 +1,8 @@
 ﻿namespace StackCalculator;
 
 using System;
+using System.Diagnostics;
+
 class Program
 {
     static void Main()
@@ -17,9 +19,22 @@ class Program
 
         var stackArray = new StackArray();
         var stackCalculator = new StackCalculator(stackArray);
+        double result = 0;
+        var time = new Stopwatch();
 
-        var result = stackCalculator.CalculateExpression(expression);
+        time.Start();
+        result = stackCalculator.CalculateExpression(expression);
+        time.Stop();
+        Console.WriteLine($"\nResponse received on stack based on ARRAY: {result}");
+        Console.WriteLine($"Time: {time.ElapsedMilliseconds} milliseconds");
 
-        Console.WriteLine($"Answer: {result}\nGood luck!");
+        var stackList = new StackList();
+        stackCalculator = new StackCalculator(stackList);
+
+        time.Restart();
+        result = stackCalculator.CalculateExpression(expression);
+        time.Stop();
+        Console.WriteLine($"\nResponse received on stack based on LIST: {result}");
+        Console.WriteLine($"Time: {time.ElapsedMilliseconds} milliseconds\n\nGood luck!");
     }
 }
