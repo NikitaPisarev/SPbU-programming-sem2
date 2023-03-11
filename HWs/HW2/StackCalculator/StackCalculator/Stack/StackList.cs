@@ -3,7 +3,7 @@ namespace StackCalculator;
 /// <summary>
 /// Stack realization by using linked list.
 /// </summary>
-internal class StackList : IStack
+public class StackList : IStack
 {
     public StackList()
     {

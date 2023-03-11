@@ -3,7 +3,7 @@ namespace StackCalculator;
 /// <summary>
 /// Stack realization by using array.
 /// </summary>
-internal class StackArray : IStack
+public class StackArray : IStack
 {
     public StackArray()
     {

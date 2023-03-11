@@ -3,14 +3,14 @@ namespace StackCalculator;
 /// <summary>
 ///  Class for polish postfix expression calculation.
 /// </summary>
-internal class StackCalculator
+public class StackCalculator
 {
     public StackCalculator(IStack stack)
     {
-        this.stack = stack;
+        this._stack = stack;
     }
 
-    private readonly IStack stack;
+    private readonly IStack _stack;
 
     private static bool IsZero(double number)
     {
@@ -24,8 +24,8 @@ internal class StackCalculator
 
         try
         {
-            firstElement = stack.Pop();
-            secondElement = stack.Pop();
+            firstElement = _stack.Pop();
+            secondElement = _stack.Pop();
         }
         catch (InvalidOperationException)
         {
@@ -35,24 +35,24 @@ internal class StackCalculator
         switch (sign)
         {
             case "+":
-                stack.Push(firstElement + secondElement);
+                _stack.Push(firstElement + secondElement);
                 break;
 
             case "-":
-                stack.Push(secondElement - firstElement);
+                _stack.Push(secondElement - firstElement);
                 break;
 
             case "*":
-                stack.Push(firstElement * secondElement);
+                _stack.Push(firstElement * secondElement);
                 break;
 
             case "/":
-                if (IsZero(secondElement))
+                if (IsZero(firstElement))
                 {
                     throw new DivideByZeroException();
                 }
 
-                stack.Push(firstElement / secondElement);
+                _stack.Push(secondElement / firstElement);
                 break;
         }
     }
@@ -62,7 +62,7 @@ internal class StackCalculator
     /// </summary>
     /// <param name="expression"> Expression in reverse Polish notation. </param>
     /// <returns> Value of expression. </returns>
-    public double CalculateExpression(string expression)
+    public double CalculateExpression(string? expression)
     {
         if (expression == null)
         {
@@ -88,21 +88,21 @@ internal class StackCalculator
                 {
                     throw new ArgumentException("Incorrect expression.");
                 }
-                stack.Push(number);
+                _stack.Push(number);
             }
         }
 
         double result = 0;
         try
         {
-            result = stack.Pop();
+            result = _stack.Pop();
         }
         catch (InvalidOperationException)
         {
             throw new ArgumentException("Incorrect expression.");
         }
 
-        if (!stack.IsEmpty())
+        if (!_stack.IsEmpty())
         {
             throw new ArgumentException("Incorrect expression.");
         }
