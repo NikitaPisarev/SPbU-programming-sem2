@@ -2,11 +2,14 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 class Program
 {
     static void Main()
     {
+        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+
         Console.WriteLine("Hi, I'm a stack calculator, I can calculate an expression written in reverse Polish notation!");
         Console.Write("Enter your expression: ");
         string? expression = Console.ReadLine();
