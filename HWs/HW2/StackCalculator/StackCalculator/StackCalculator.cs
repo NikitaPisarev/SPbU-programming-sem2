@@ -1,5 +1,8 @@
 namespace StackCalculator;
 
+/// <summary>
+///  Class for polish postfix expression calculation.
+/// </summary>
 internal class StackCalculator
 {
     public StackCalculator(IStack stack)
@@ -54,6 +57,11 @@ internal class StackCalculator
         }
     }
 
+    /// <summary>
+    /// A method for calculating the Polish postfix expression.
+    /// </summary>
+    /// <param name="expression"> Expression in reverse Polish notation. </param>
+    /// <returns> Value of expression. </returns>
     public double CalculateExpression(string expression)
     {
         if (expression == null)

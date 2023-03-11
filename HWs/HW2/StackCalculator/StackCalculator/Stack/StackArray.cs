@@ -1,5 +1,8 @@
 namespace StackCalculator;
 
+/// <summary>
+/// Stack realization by using array.
+/// </summary>
 internal class StackArray : IStack
 {
     public StackArray()
@@ -11,12 +14,14 @@ internal class StackArray : IStack
 
     private int length = 0;
 
+    /// <inheritdoc/>
     public void Push(double value)
     {
         stack.Insert(length, value);
         ++length;
     }
 
+    /// <inheritdoc/>
     public double Pop()
     {
         if (IsEmpty())
@@ -28,6 +33,7 @@ internal class StackArray : IStack
         return stack[length];
     }
 
+    /// <inheritdoc/>
     public bool IsEmpty()
     {
         return length == 0;

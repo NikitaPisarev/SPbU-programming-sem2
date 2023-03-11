@@ -1,5 +1,8 @@
 namespace StackCalculator;
 
+/// <summary>
+/// Stack realization by using linked list.
+/// </summary>
 internal class StackList : IStack
 {
     public StackList()
@@ -9,11 +12,13 @@ internal class StackList : IStack
 
     private LinkedList<double> stack;
 
+    /// <inheritdoc/>
     public void Push(double value)
     {
         stack.AddFirst(value);
     }
 
+    /// <inheritdoc/>
     public double Pop()
     {
         if (IsEmpty())
@@ -27,6 +32,7 @@ internal class StackList : IStack
         return result;
     }
 
+    /// <inheritdoc/>
     public bool IsEmpty()
     {
         return stack.First == null;
