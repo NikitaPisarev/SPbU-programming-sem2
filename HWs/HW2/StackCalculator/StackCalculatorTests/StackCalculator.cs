@@ -63,6 +63,5 @@ public class Tests
         var expression = "10 2 + 0 /";
 
         Assert.Throws<DivideByZeroException>(() => stackCalculator.CalculateExpression(expression));
-
     }
 }
