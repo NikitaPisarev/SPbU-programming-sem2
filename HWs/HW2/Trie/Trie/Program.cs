@@ -35,6 +35,7 @@ class Program
                 Console.WriteLine("Incorrect input! Enter only the number 0-6.");
                 Console.Write("Try again: ");
             }
+            string? str = null;
 
             switch (action)
             {
@@ -45,7 +46,7 @@ class Program
 
                 case 1:
                     Console.Write("Enter a string: ");
-                    string? str = Console.ReadLine();
+                    str = Console.ReadLine();
 
                     if (trie.Add(str))
                     {
@@ -57,6 +58,19 @@ class Program
                     }
                     break;
 
+                case 3:
+                    Console.Write("Enter a string: ");
+                    str = Console.ReadLine();
+
+                    if (trie.Contains(str))
+                    {
+                        Console.WriteLine("Yes, this string is in Trie!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No, this string is not in Trie.");
+                    }
+                    break;
 
                 case 6:
                     PrintActions();
