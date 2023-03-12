@@ -42,14 +42,6 @@ public class Tests
         var originalString = "";
         var originalNumber = 0;
 
-        try
-        {
-            var actual = BWT.Program.Decode(originalString, originalNumber);
-        }
-        catch (ArgumentException)
-        {
-            Assert.Pass();
-        }
-        Assert.Fail();
+        Assert.Throws<ArgumentException>(() => BWT.Program.Decode(originalString, originalNumber));
     }
 }
