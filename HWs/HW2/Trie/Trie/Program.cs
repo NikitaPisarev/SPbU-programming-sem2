@@ -1,4 +1,6 @@
-﻿using System;
+﻿namespace Trie;
+
+using System;
 
 class Program
 {
@@ -23,6 +25,7 @@ class Program
         PrintActions();
 
         int action = 0;
+        var trie = new Trie();
         var isContinue = true;
         while (isContinue)
         {
@@ -39,6 +42,21 @@ class Program
                     Console.WriteLine("Good luck!");
                     isContinue = false;
                     break;
+
+                case 1:
+                    Console.Write("Enter a string: ");
+                    string? str = Console.ReadLine();
+
+                    if (trie.Add(str))
+                    {
+                        Console.WriteLine("String added successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("This string is already in Trie.");
+                    }
+                    break;
+
 
                 case 6:
                     PrintActions();
