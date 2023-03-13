@@ -50,6 +50,34 @@ internal class Trie
         return currentNode.IsTerminal = true;
     }
 
+    public bool Remove(string element)
+    {
+        if (!Contains(element))
+        {
+            return false;
+        }
+
+        var currentNode = _root;
+        foreach (var character in element)
+        {
+            currentNode.NumberWordsWithSamePrefix--;
+
+            if (currentNode.Next[character].NumberWordsWithSamePrefix == 1)
+            {
+                currentNode.Next.Remove(character);
+                Size--;
+                return true;
+            }
+
+            currentNode = currentNode.Next[character];
+        }
+
+        currentNode.NumberWordsWithSamePrefix--;
+        Size--;
+        currentNode.IsTerminal = false;
+        return true;
+    }
+
     public bool Contains(string element)
     {
         var currentNode = _root;

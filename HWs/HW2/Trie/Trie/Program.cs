@@ -35,7 +35,7 @@ class Program
                 WriteLine("Incorrect input! Enter only the number 0-6.");
                 Write("Try again: ");
             }
-            string? str = null;
+            string? str = "";
 
             switch (action)
             {
@@ -55,6 +55,20 @@ class Program
                     else
                     {
                         WriteLine("This string is already in Trie.");
+                    }
+                    break;
+
+                case 2:
+                    Write("Enter a string: ");
+                    str = ReadLine();
+
+                    if (trie.Remove(str))
+                    {
+                        WriteLine("String removes successfully!");
+                    }
+                    else
+                    {
+                        WriteLine("This string is not in Trie.");
                     }
                     break;
 
