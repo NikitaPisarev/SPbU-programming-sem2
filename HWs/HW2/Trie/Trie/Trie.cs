@@ -9,7 +9,7 @@ internal class Trie
 
     private Node _root;
 
-    public int Size { get; }
+    public int Size { get; private set; }
 
     private class Node
     {
@@ -41,6 +41,7 @@ internal class Trie
             return false;
         }
 
+        Size++;
         return currentNode.IsTerminal = true;
     }
 
