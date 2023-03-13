@@ -76,6 +76,13 @@ class Program
                     WriteLine($"Number of strings: {trie.Size}");
                     break;
 
+                case 5:
+                    Write("Enter a prefix: ");
+                    str = ReadLine();
+
+                    WriteLine($"Number of lines, prefixed with \"{str}\": {trie.HowManyStartsWithPrefix(str)}");
+                    break;
+
                 case 6:
                     PrintActions();
                     break;

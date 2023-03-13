@@ -20,11 +20,19 @@ internal class Trie
 
         public Dictionary<char, Node> Next { get; }
 
+        public int NumberWordsWithSamePrefix { get; set; }
+
         public bool IsTerminal { get; set; }
     }
 
     public bool Add(string element)
     {
+
+        if (Contains(element))
+        {
+            return false;
+        }
+
         var currentNode = _root;
         foreach (var character in element)
         {
@@ -33,14 +41,11 @@ internal class Trie
                 currentNode.Next[character] = new Node();
             }
 
+            currentNode.NumberWordsWithSamePrefix++;
             currentNode = currentNode.Next[character];
         }
 
-        if (currentNode.IsTerminal)
-        {
-            return false;
-        }
-
+        currentNode.NumberWordsWithSamePrefix++;
         Size++;
         return currentNode.IsTerminal = true;
     }
@@ -59,5 +64,20 @@ internal class Trie
         }
 
         return currentNode.IsTerminal;
+    }
+
+    public int HowManyStartsWithPrefix(string prefix)
+    {
+        var currentNode = _root;
+        foreach (var character in prefix)
+        {
+            if (!currentNode.Next.ContainsKey(character))
+            {
+                return 0;
+            }
+            currentNode = currentNode.Next[character];
+        }
+
+        return currentNode.NumberWordsWithSamePrefix;
     }
 }
