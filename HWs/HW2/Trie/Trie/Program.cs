@@ -14,7 +14,7 @@ class Program
         3 - Check if the element contains
         4 - Get size
         5 - Get number of elements with prefix
-        6 -  View the list of commands
+        6 - View the list of commands
         --------------------------------------
         """);
     }
