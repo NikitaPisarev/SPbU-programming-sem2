@@ -48,42 +48,21 @@ class Program
                     Write("Enter a string: ");
                     str = ReadLine();
 
-                    if (trie.Add(str))
-                    {
-                        WriteLine("String added successfully!");
-                    }
-                    else
-                    {
-                        WriteLine("This string is already in Trie.");
-                    }
+                    WriteLine(trie.Add(str) ? "String added successfully!" : "This string is already in Trie.");
                     break;
 
                 case 2:
                     Write("Enter a string: ");
                     str = ReadLine();
 
-                    if (trie.Remove(str))
-                    {
-                        WriteLine("String removes successfully!");
-                    }
-                    else
-                    {
-                        WriteLine("This string is not in Trie.");
-                    }
+                    WriteLine(trie.Remove(str) ? "String removes successfully!" : "This string is not in Trie.");
                     break;
 
                 case 3:
                     Write("Enter a string: ");
                     str = ReadLine();
 
-                    if (trie.Contains(str))
-                    {
-                        WriteLine("Yes, this string is in Trie!");
-                    }
-                    else
-                    {
-                        WriteLine("No, this string is not in Trie.");
-                    }
+                    WriteLine(trie.Contains(str) ? "Yes, this string is in Trie!" : "No, this string is not in Trie.");
                     break;
 
                 case 4:

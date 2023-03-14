@@ -4,7 +4,8 @@ internal class Trie
 {
     public Trie()
     {
-        _root = new();
+        this._root = new();
+        Size = 0;
     }
 
     private Node _root;
@@ -16,6 +17,8 @@ internal class Trie
         public Node()
         {
             this.Next = new();
+            this.NumberWordsWithSamePrefix = 0;
+            this.IsTerminal = false;
         }
 
         public Dictionary<char, Node> Next { get; }
@@ -25,8 +28,12 @@ internal class Trie
         public bool IsTerminal { get; set; }
     }
 
-    public bool Add(string element)
+    public bool Add(string? element)
     {
+        if (element is null)
+        {
+            throw new ArgumentNullException(nameof(element), "Can't be null.");
+        }
 
         if (Contains(element))
         {
@@ -50,8 +57,13 @@ internal class Trie
         return currentNode.IsTerminal = true;
     }
 
-    public bool Remove(string element)
+    public bool Remove(string? element)
     {
+        if (element is null)
+        {
+            throw new ArgumentNullException(nameof(element), "Can't be null.");
+        }
+
         if (!Contains(element))
         {
             return false;
@@ -78,8 +90,13 @@ internal class Trie
         return true;
     }
 
-    public bool Contains(string element)
+    public bool Contains(string? element)
     {
+        if (element is null)
+        {
+            throw new ArgumentNullException(nameof(element), "Can't be null.");
+        }
+
         var currentNode = _root;
         foreach (var character in element)
         {
@@ -94,8 +111,13 @@ internal class Trie
         return currentNode.IsTerminal;
     }
 
-    public int HowManyStartsWithPrefix(string prefix)
+    public int HowManyStartsWithPrefix(string? prefix)
     {
+        if (prefix is null)
+        {
+            throw new ArgumentNullException(nameof(prefix), "Can't be null.");
+        }
+
         var currentNode = _root;
         foreach (var character in prefix)
         {
