@@ -3,27 +3,53 @@
 using System;
 using System.Text;
 
+internal class RotationsComparer : IComparer<int>
+{
+    public RotationsComparer(string str)
+    {
+        this._string = str;
+    }
+
+    private string _string;
+
+    int IComparer<int>.Compare(int firstElement, int secondElement)
+    {
+        for (int i = 0; i < _string.Length; ++i)
+        {
+            if (_string[(firstElement + i) % _string.Length] > _string[(secondElement + i) % _string.Length])
+            {
+                return 1;
+            }
+            else if (_string[(firstElement + i) % _string.Length] < _string[(secondElement + i) % _string.Length])
+            {
+                return -1;
+            }
+        }
+        return 0;
+    }
+}
+
 public class Program
 {
     private const int _alphabetSize = 65536;
 
     public static (string, int) Encode(string text)
     {
-        var rotations = new string[text.Length];
+        var rotations = new int[text.Length];
         for (int i = 0; i < rotations.Length; ++i)
         {
-            rotations[i] = text.Substring(i) + text.Substring(0, i);
+            rotations[i] = i;
         }
 
-        Array.Sort(rotations, StringComparer.Ordinal);
+        Array.Sort(rotations, new RotationsComparer(text));
 
         var result = new StringBuilder();
         int lineEndNumber = 0;
         for (int i = 0; i < text.Length; ++i)
         {
-            result.Append(rotations[i][text.Length - 1]);
+            result.Append(text[(rotations[i] + text.Length - 1) % text.Length]);
 
-            if (rotations[i] == text)
+            if (rotations[i] == 0)
             {
                 lineEndNumber = i;
             }
