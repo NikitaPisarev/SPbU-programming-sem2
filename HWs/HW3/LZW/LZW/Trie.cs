@@ -1,4 +1,4 @@
-namespace Trie;
+namespace LZW;
 
 /// <summary>
 /// Data structure, which is a suspended tree with bytes on the edges, Trie.
@@ -149,5 +149,15 @@ internal class Trie
         }
 
         return currentNode.Value;
+    }
+
+    public void InitializationOfTrie()
+    {
+        for (var i = 0; i < 256; ++i)
+        {
+            var newElement = new List<byte>();
+            newElement.Add((byte)i);
+            this.Add(newElement, i);
+        }
     }
 }
