@@ -59,7 +59,7 @@ internal class Trie
     /// <param name="element"> Byte array. </param>
     /// <returns> True - element added successfully, False - this element is already in Trie. </returns>
     /// <exception cref="ArgumentNullException"> Element can't be null. </exception>
-    public bool Add(List<byte> element, int value)
+    public bool Add(List<byte> element)
     {
         if (element is null)
         {
@@ -81,13 +81,12 @@ internal class Trie
         {
             if (!currentNode.Next.ContainsKey(currentByte))
             {
-                currentNode.Next[currentByte] = new Node(value);
+                currentNode.Next[currentByte] = new Node(Size++);
             }
 
             currentNode = currentNode.Next[currentByte];
         }
 
-        Size++;
         return currentNode.IsTerminal = true;
     }
 
@@ -153,11 +152,11 @@ internal class Trie
 
     public void InitializationOfTrie()
     {
-        for (var i = 0; i < 256; ++i)
+        for (int i = 0; i < 256; ++i)
         {
             var newElement = new List<byte>();
             newElement.Add((byte)i);
-            this.Add(newElement, i);
+            this.Add(newElement);
         }
     }
 }
