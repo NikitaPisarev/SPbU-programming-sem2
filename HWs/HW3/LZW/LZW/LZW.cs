@@ -68,8 +68,8 @@ public class LZW
         }
 
         var result = new List<byte>();
-        var dictionary = InitializationOfDictionary();
-        var phrases = GetAllPhrases(bytes);
+        var dictionary = _initializationOfDictionary();
+        var phrases = _getAllPhrases(bytes);
         var dictionarySize = 256;
         var dictionaryCounter = 256;
         var newPhrase = new List<byte>();
@@ -78,7 +78,7 @@ public class LZW
         {
             if (dictionarySize == _maximumSizeOfNumberOfCodes)
             {
-                dictionary = InitializationOfDictionary();
+                dictionary = _initializationOfDictionary();
                 dictionarySize = 256;
                 dictionaryCounter = 256;
             }
@@ -114,7 +114,7 @@ public class LZW
         return result.ToArray();
     }
 
-    private List<int> GetAllPhrases(byte[] bytes)
+    private List<int> _getAllPhrases(byte[] bytes)
     {
         var buffer = new DictionaryPhrasesBuffer();
 
@@ -156,7 +156,7 @@ public class LZW
         return buffer.Phrases;
     }
 
-    public Dictionary<int, List<byte>> InitializationOfDictionary()
+    private Dictionary<int, List<byte>> _initializationOfDictionary()
     {
         var dictionary = new Dictionary<int, List<byte>>();
         for (int i = 0; i < 256; ++i)
