@@ -4,15 +4,8 @@ public class LZW
 {
     private int _maximumSizeOfNumberOfCodes = 65536;
 
-    public void Compress(string? filePath)
+    public byte[] Compress(byte[] bytes)
     {
-        if (filePath is null)
-        {
-            throw new ArgumentNullException(nameof(filePath), "Can't be null.");
-        }
-
-        var bytes = File.ReadAllBytes(filePath);
-
         if (bytes.Length == 0)
         {
             throw new ArgumentException("File empty.");
@@ -56,16 +49,13 @@ public class LZW
                 input.Add(bytes[i]);
             }
         }
+        buffer.Add(trie.GetValueOfElement(input));
 
-        CreateCompressedFile(filePath, buffer.ResultBytes.ToArray());
-    }
+        if (buffer.Buffer != 0)
+        {
+            buffer.AddInResultBytes();
+        }
 
-    public void CreateCompressedFile(string filePath, byte[] bytes)
-    {
-        var compressedFilePath = filePath + ".zipped";
-        var file = new FileInfo(compressedFilePath);
-        var compressedFile = file.Create();
-        compressedFile.Close();
-        File.WriteAllBytes(compressedFilePath, bytes);
+        return buffer.ResultBytes.ToArray();
     }
 }

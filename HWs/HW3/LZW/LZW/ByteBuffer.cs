@@ -22,11 +22,16 @@ internal class ByteBuffer
             ++_lentghOfBitsInBuffer;
             if (_lentghOfBitsInBuffer == _byteSize)
             {
-                ResultBytes.Add(Buffer);
-                Buffer = 0;
-                _lentghOfBitsInBuffer = 0;
+                AddInResultBytes();
             }
         }
+    }
+
+    public void AddInResultBytes()
+    {
+        ResultBytes.Add(Buffer);
+        Buffer = 0;
+        _lentghOfBitsInBuffer = 0;
     }
 
     private byte[] _convertToBits(int code)
