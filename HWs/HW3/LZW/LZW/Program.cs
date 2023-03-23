@@ -11,8 +11,16 @@ void CreateCompressedFile(string filePath, byte[] bytes)
     File.WriteAllBytes(compressedFilePath, bytes);
 }
 
-var LZW = new LZW.LZW();
+void CreateDecompressedFile(string filePath, byte[] bytes)
+{
+    var decompressedFilePath = filePath.Remove(filePath.Length - 7);
+    var file = new FileInfo(decompressedFilePath);
+    var decompressedFile = file.Create();
+    decompressedFile.Close();
+    File.WriteAllBytes(decompressedFilePath, bytes);
+}
 
+var LZW = new LZW.LZW();
 
 if (args[0] == "help")
 {
@@ -41,17 +49,23 @@ else
     switch (args[1])
     {
         case "--c":
-            var inputBytes = File.ReadAllBytes(args[0]);
+            var inpuBytesForCompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");
-            var outputBytes = LZW.Compress(inputBytes);
-            CreateCompressedFile(args[0], outputBytes);
+            var outputCompressionBytes = LZW.Compress(inpuBytesForCompression);
+            CreateCompressedFile(args[0], outputCompressionBytes);
             WriteLine("Done.");
 
-            WriteLine($"Compression ratio: {((double)inputBytes.Length / outputBytes.Length)}");
+            WriteLine($"Compression ratio: {((double)inpuBytesForCompression.Length / outputCompressionBytes.Length)}");
             break;
 
         case "-u":
+            var inputBytesForDecompression = File.ReadAllBytes(args[0]);
+
+            WriteLine("Processing...");
+            var outputDecompressionBytes = LZW.Decompress(inputBytesForDecompression);
+            CreateDecompressedFile(args[0], outputDecompressionBytes);
+            WriteLine("Done.");
             break;
 
         default:
