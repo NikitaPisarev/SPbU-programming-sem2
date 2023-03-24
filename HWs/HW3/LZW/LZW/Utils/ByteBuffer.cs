@@ -2,23 +2,9 @@ namespace LZW;
 
 internal class ByteBuffer
 {
-
-    public ByteBuffer(int currentBitLength)
-    {
-        this.CurrentBitLength = currentBitLength;
-        this.Buffer = 0;
-        this.ResultBytes = new();
-    }
-
-    public ByteBuffer()
-    {
-        this.Buffer = 0;
-        this.ResultBytes = new();
-    }
-
     public List<byte> ResultBytes { get; private set; } = new();
 
-    public byte Buffer { get; private set; }
+    public byte Buffer { get; private set; } = 0;
 
     public int CurrentBitLength { get; set; } = 9;
 
