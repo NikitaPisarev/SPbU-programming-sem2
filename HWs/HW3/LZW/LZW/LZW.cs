@@ -69,12 +69,12 @@ public static class LZW
 
         var result = new List<byte>();
         var dictionary = DecompressUtils.InitializationOfDictionary();
-        var phrases = DecompressUtils.GetAllPhrases(bytes);
+        var codes = DecompressUtils.GetAllCodes(bytes);
         var dictionarySize = 256;
         var dictionaryCounter = 256;
         var newPhrase = new List<byte>();
 
-        for (int i = 0; i < phrases.Count; ++i)
+        for (int i = 0; i < codes.Count; ++i)
         {
             if (dictionarySize == maximumSizeOfNumberOfCodes)
             {
@@ -83,7 +83,7 @@ public static class LZW
                 dictionaryCounter = 256;
             }
 
-            if (dictionary.ContainsKey(phrases[i]))
+            if (dictionary.ContainsKey(codes[i]))
             {
                 if (dictionarySize != 256)
                 {
@@ -92,20 +92,20 @@ public static class LZW
                         ++dictionaryCounter;
                     }
 
-                    newPhrase = new List<byte>(dictionary[phrases[i - 1]]);
-                    newPhrase.Add(dictionary[phrases[i]][0]);
+                    newPhrase = new List<byte>(dictionary[codes[i - 1]]);
+                    newPhrase.Add(dictionary[codes[i]][0]);
 
                     dictionary.Add(dictionaryCounter++, newPhrase);
                 }
 
-                result.AddRange(dictionary[phrases[i]]);
+                result.AddRange(dictionary[codes[i]]);
             }
             else
             {
-                newPhrase = new List<byte>(dictionary[phrases[i - 1]]);
-                newPhrase.Add(dictionary[phrases[i - 1]][0]);
+                newPhrase = new List<byte>(dictionary[codes[i - 1]]);
+                newPhrase.Add(dictionary[codes[i - 1]][0]);
 
-                dictionary.Add(phrases[i], newPhrase);
+                dictionary.Add(codes[i], newPhrase);
                 result.AddRange(newPhrase);
             }
             ++dictionarySize;

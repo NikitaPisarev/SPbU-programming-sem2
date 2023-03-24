@@ -2,9 +2,9 @@ namespace LZW;
 
 internal static class DecompressUtils
 {
-    internal static List<int> GetAllPhrases(byte[] bytes)
+    internal static List<int> GetAllCodes(byte[] bytes)
     {
-        var buffer = new DictionaryPhrasesBuffer();
+        var buffer = new DictionaryCodesBuffer();
 
         var dictionarySize = 256;
         var currentMaximumSizeOfNumberOfCodes = 512;
@@ -38,10 +38,10 @@ internal static class DecompressUtils
 
         if (!isLastByteAdded)
         {
-            buffer.AddInPhrases();
+            buffer.AddInCodes();
         }
 
-        return buffer.Phrases;
+        return buffer.Codes;
     }
 
     internal static Dictionary<int, List<byte>> InitializationOfDictionary()
