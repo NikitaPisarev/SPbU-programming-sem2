@@ -1,7 +1,6 @@
 ﻿using static System.Console;
 using LZW;
 
-
 void CreateCompressedFile(string filePath, byte[] bytes)
 {
     var compressedFilePath = filePath + ".zipped";
@@ -41,7 +40,7 @@ else
 {
     if (args.Length < 2)
     {
-        throw new IOException("Argument(s) omitted. Use \"dotnet run help\".");
+        throw new IOException("Argument(s) omitted. Use \"dotnet LZW.dll help\".");
     }
 
     switch (args[1])
