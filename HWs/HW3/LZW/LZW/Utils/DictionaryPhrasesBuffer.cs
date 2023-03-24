@@ -2,22 +2,11 @@ namespace LZW;
 
 public class DictionaryPhrasesBuffer
 {
-    public DictionaryPhrasesBuffer(int currentBitLength)
-    {
-        this.Phrases = new();
-        this.CurrentBitLength = currentBitLength;
-    }
-
-    public DictionaryPhrasesBuffer()
-    {
-        this.Phrases = new();
-    }
-
-    public List<int> Phrases { get; private set; }
+    public List<int> Phrases { get; private set; } = new();
 
     public int CurrentBitLength { get; set; } = 9;
 
-    public int Buffer { get; private set; }
+    public int Buffer { get; private set; } = 0;
 
     private int _lentghOfBitsInBuffer = 0;
 
