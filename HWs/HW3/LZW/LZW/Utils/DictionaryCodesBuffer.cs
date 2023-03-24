@@ -6,11 +6,11 @@ public class DictionaryCodesBuffer
 
     public int CurrentBitLength { get; set; } = 9;
 
-    public int Buffer { get; private set; } = 0;
+    public int Buffer { get; set; } = 0;
 
-    private int _lentghOfBitsInBuffer = 0;
+    public int LentghOfBitsInBuffer = 0;
 
-    private const int _byteSize = 8;
+    public const int ByteSize = 8;
 
     public bool Add(byte oneByte)
     {
@@ -19,9 +19,9 @@ public class DictionaryCodesBuffer
 
         foreach (var i in bits)
         {
-            Buffer = (Buffer << 1) + i;
-            ++_lentghOfBitsInBuffer;
-            if (_lentghOfBitsInBuffer == CurrentBitLength)
+            Buffer = ((Buffer << 1) + i);
+            ++LentghOfBitsInBuffer;
+            if (LentghOfBitsInBuffer == CurrentBitLength)
             {
                 AddInCodes();
                 isNewPhrase = true;
@@ -34,13 +34,46 @@ public class DictionaryCodesBuffer
     {
         Codes.Add(Buffer);
         Buffer = 0;
-        _lentghOfBitsInBuffer = 0;
+        LentghOfBitsInBuffer = 0;
+    }
+
+    public void AddLastByteInCodes(byte oneByte)
+    {
+        var bits = RepresentationLastByteInCodes(oneByte);
+
+        foreach (var i in bits)
+        {
+            Buffer = ((Buffer << 1) + i);
+            ++LentghOfBitsInBuffer;
+            if (LentghOfBitsInBuffer == CurrentBitLength)
+            {
+                AddInCodes();
+            }
+        }
+    }
+
+    private byte[] RepresentationLastByteInCodes(byte oneByte)
+    {
+        var bits = new List<byte>();
+        while (oneByte > 0)
+        {
+            bits.Add((byte)(oneByte % 2));
+            oneByte >>= 1;
+        }
+
+        while (bits.Count + LentghOfBitsInBuffer < CurrentBitLength)
+        {
+            bits.Add(0);
+        }
+
+        bits.Reverse();
+        return bits.ToArray();
     }
 
     private byte[] _convertToBits(byte oneByte)
     {
-        var bits = new byte[_byteSize];
-        for (int i = _byteSize - 1; i >= 0; --i)
+        var bits = new byte[ByteSize];
+        for (int i = ByteSize - 1; i >= 0; --i)
         {
             bits[i] = (byte)(oneByte % 2);
             oneByte /= 2;

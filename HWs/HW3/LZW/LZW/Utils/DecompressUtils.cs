@@ -9,8 +9,7 @@ internal static class DecompressUtils
         var dictionarySize = 256;
         var currentMaximumSizeOfNumberOfCodes = 512;
 
-        var isLastByteAdded = false;
-        for (int i = 0; i < bytes.Length; ++i)
+        for (int i = 0; i < bytes.Length - 1; ++i)
         {
             if (dictionarySize == LZW.maximumSizeOfNumberOfCodes)
             {
@@ -28,17 +27,16 @@ internal static class DecompressUtils
             if (buffer.Add(bytes[i]))
             {
                 ++dictionarySize;
-                isLastByteAdded = true;
-            }
-            else
-            {
-                isLastByteAdded = false;
             }
         }
 
-        if (!isLastByteAdded)
+        if (buffer.LentghOfBitsInBuffer + DictionaryCodesBuffer.ByteSize == buffer.CurrentBitLength)
         {
-            buffer.AddInCodes();
+            buffer.Add(bytes[^1]);
+        }
+        else
+        {
+            buffer.AddLastByteInCodes(bytes[^1]);
         }
 
         return buffer.Codes;
