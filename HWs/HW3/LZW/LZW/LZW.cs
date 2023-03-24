@@ -2,7 +2,7 @@ namespace LZW;
 
 public static class LZW
 {
-    private static int _maximumSizeOfNumberOfCodes = 65536;
+    internal static int maximumSizeOfNumberOfCodes = 65536;
 
     public static byte[] Compress(byte[] bytes)
     {
@@ -32,7 +32,7 @@ public static class LZW
                 buffer.Add(trie.GetValueOfElement(input));
                 trie.Add(newElement);
 
-                if (trie.Size == _maximumSizeOfNumberOfCodes)
+                if (trie.Size == maximumSizeOfNumberOfCodes)
                 {
                     currentMaximumSizeOfNumberOfCodes = 512;
                     buffer.CurrentBitLength = 9;
@@ -68,17 +68,17 @@ public static class LZW
         }
 
         var result = new List<byte>();
-        var dictionary = _initializationOfDictionary();
-        var phrases = _getAllPhrases(bytes);
+        var dictionary = DecompressUtils.InitializationOfDictionary();
+        var phrases = DecompressUtils.GetAllPhrases(bytes);
         var dictionarySize = 256;
         var dictionaryCounter = 256;
         var newPhrase = new List<byte>();
 
         for (int i = 0; i < phrases.Count; ++i)
         {
-            if (dictionarySize == _maximumSizeOfNumberOfCodes)
+            if (dictionarySize == maximumSizeOfNumberOfCodes)
             {
-                dictionary = _initializationOfDictionary();
+                dictionary = DecompressUtils.InitializationOfDictionary();
                 dictionarySize = 256;
                 dictionaryCounter = 256;
             }
@@ -112,59 +112,5 @@ public static class LZW
         }
 
         return result.ToArray();
-    }
-
-    private static List<int> _getAllPhrases(byte[] bytes)
-    {
-        var buffer = new DictionaryPhrasesBuffer();
-
-        var dictionarySize = 256;
-        var currentMaximumSizeOfNumberOfCodes = 512;
-
-        var isLastByteAdded = false;
-        for (int i = 0; i < bytes.Length; ++i)
-        {
-            if (dictionarySize == _maximumSizeOfNumberOfCodes)
-            {
-                dictionarySize = 256;
-                currentMaximumSizeOfNumberOfCodes = 512;
-                buffer.CurrentBitLength = 9;
-            }
-
-            if (dictionarySize == currentMaximumSizeOfNumberOfCodes)
-            {
-                ++buffer.CurrentBitLength;
-                currentMaximumSizeOfNumberOfCodes *= 2;
-            }
-
-            if (buffer.Add(bytes[i]))
-            {
-                ++dictionarySize;
-                isLastByteAdded = true;
-            }
-            else
-            {
-                isLastByteAdded = false;
-            }
-        }
-
-        if (!isLastByteAdded)
-        {
-            buffer.AddInPhrases();
-        }
-
-        return buffer.Phrases;
-    }
-
-    private static Dictionary<int, List<byte>> _initializationOfDictionary()
-    {
-        var dictionary = new Dictionary<int, List<byte>>();
-        for (int i = 0; i < 256; ++i)
-        {
-            dictionary[i] = new List<byte>();
-            dictionary[i].Add((byte)i);
-        }
-
-        return dictionary;
     }
 }
