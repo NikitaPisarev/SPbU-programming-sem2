@@ -50,7 +50,9 @@ public static class LZW
                 input.Add(bytes[i]);
             }
         }
-        if (!buffer.Add(trie.GetValueOfElement(input)))
+        buffer.Add(trie.GetValueOfElement(input));
+
+        if (buffer.LentghOfBitsInBuffer != 0)
         {
             buffer.AddInResultBytes();
         }

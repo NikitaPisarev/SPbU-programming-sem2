@@ -8,33 +8,30 @@ internal class ByteBuffer
 
     public int CurrentBitLength { get; set; } = 9;
 
-    private int _lentghOfBitsInBuffer = 0;
+    public int LentghOfBitsInBuffer = 0;
 
     private const int _byteSize = 8;
 
-    public bool Add(int phrase)
+    public void Add(int phrase)
     {
-        var isNewCodeAdd = false;
         var bits = _convertToBits(phrase);
 
         foreach (var i in bits)
         {
             Buffer = (byte)((Buffer << 1) + i);
-            ++_lentghOfBitsInBuffer;
-            if (_lentghOfBitsInBuffer == _byteSize)
+            ++LentghOfBitsInBuffer;
+            if (LentghOfBitsInBuffer == _byteSize)
             {
                 AddInResultBytes();
-                isNewCodeAdd = true;
             }
         }
-        return isNewCodeAdd;
     }
 
     public void AddInResultBytes()
     {
         ResultBytes.Add(Buffer);
         Buffer = 0;
-        _lentghOfBitsInBuffer = 0;
+        LentghOfBitsInBuffer = 0;
     }
 
     private byte[] _convertToBits(int phrase)
