@@ -1,24 +1,6 @@
 ﻿using static System.Console;
 using LZW;
 
-void CreateCompressedFile(string filePath, byte[] bytes)
-{
-    var compressedFilePath = filePath + ".zipped";
-    var file = new FileInfo(compressedFilePath);
-    var compressedFile = file.Create();
-    compressedFile.Close();
-    File.WriteAllBytes(compressedFilePath, bytes);
-}
-
-void CreateDecompressedFile(string filePath, byte[] bytes)
-{
-    var decompressedFilePath = filePath.Remove(filePath.Length - 7);
-    var file = new FileInfo(decompressedFilePath);
-    var decompressedFile = file.Create();
-    decompressedFile.Close();
-    File.WriteAllBytes(decompressedFilePath, bytes);
-}
-
 if (args[0] == "help")
 {
     WriteLine("""
@@ -50,7 +32,8 @@ else
 
             WriteLine("Processing...");
             var outputCompressionBytes = LZW.LZW.Compress(inpuBytesForCompression);
-            CreateCompressedFile(args[0], outputCompressionBytes);
+            File.WriteAllBytes(args[0] + ".zipped", outputCompressionBytes);
+
             WriteLine("Done.");
 
             WriteLine($"Compression ratio: {((double)inpuBytesForCompression.Length / outputCompressionBytes.Length)}");
@@ -61,7 +44,7 @@ else
 
             WriteLine("Processing...");
             var outputDecompressionBytes = LZW.LZW.Decompress(inputBytesForDecompression);
-            CreateDecompressedFile(args[0], outputDecompressionBytes);
+            File.WriteAllBytes(args[0].Replace(".zipped", ""), outputDecompressionBytes);
             WriteLine("Done.");
             break;
 
