@@ -1,10 +1,10 @@
 namespace LZW;
 
-public class LZW
+public static class LZW
 {
-    private int _maximumSizeOfNumberOfCodes = 65536;
+    private static int _maximumSizeOfNumberOfCodes = 65536;
 
-    public byte[] Compress(byte[] bytes)
+    public static byte[] Compress(byte[] bytes)
     {
         if (bytes.Length == 0)
         {
@@ -60,7 +60,7 @@ public class LZW
         return buffer.ResultBytes.ToArray();
     }
 
-    public byte[] Decompress(byte[] bytes)
+    public static byte[] Decompress(byte[] bytes)
     {
         if (bytes.Length == 0)
         {
@@ -114,7 +114,7 @@ public class LZW
         return result.ToArray();
     }
 
-    private List<int> _getAllPhrases(byte[] bytes)
+    private static List<int> _getAllPhrases(byte[] bytes)
     {
         var buffer = new DictionaryPhrasesBuffer();
 
@@ -156,7 +156,7 @@ public class LZW
         return buffer.Phrases;
     }
 
-    private Dictionary<int, List<byte>> _initializationOfDictionary()
+    private static Dictionary<int, List<byte>> _initializationOfDictionary()
     {
         var dictionary = new Dictionary<int, List<byte>>();
         for (int i = 0; i < 256; ++i)

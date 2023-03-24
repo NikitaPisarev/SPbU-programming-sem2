@@ -20,8 +20,6 @@ void CreateDecompressedFile(string filePath, byte[] bytes)
     File.WriteAllBytes(decompressedFilePath, bytes);
 }
 
-var LZW = new LZW.LZW();
-
 if (args[0] == "help")
 {
     WriteLine("""
@@ -52,7 +50,7 @@ else
             var inpuBytesForCompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");
-            var outputCompressionBytes = LZW.Compress(inpuBytesForCompression);
+            var outputCompressionBytes = LZW.LZW.Compress(inpuBytesForCompression);
             CreateCompressedFile(args[0], outputCompressionBytes);
             WriteLine("Done.");
 
@@ -63,7 +61,7 @@ else
             var inputBytesForDecompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");
-            var outputDecompressionBytes = LZW.Decompress(inputBytesForDecompression);
+            var outputDecompressionBytes = LZW.LZW.Decompress(inputBytesForDecompression);
             CreateDecompressedFile(args[0], outputDecompressionBytes);
             WriteLine("Done.");
             break;
