@@ -1,5 +1,6 @@
 ﻿using static System.Console;
-using LZW;
+using static LZW.LZW;
+using static BWT.BWT;
 
 if (args[0] == "help")
 {
@@ -7,12 +8,12 @@ if (args[0] == "help")
         This program is designed to compress and decompress files using the Lempel—Ziv—Welch algorithm. 
 
         Usage:
-        To compress the file, use the "-c" key:
+        To compress the file, use the "--c" key:
         -------------------------------------------
         dotnet run <File path> -with
         -------------------------------------------
 
-        To decompress the file, use the "-u" key:
+        To decompress the file, use the "--u" key:
         -------------------------------------------
         dotnet run <File path> -u
         -------------------------------------------
@@ -28,22 +29,36 @@ else
     switch (args[1])
     {
         case "--c":
-            var inpuBytesForCompression = File.ReadAllBytes(args[0]);
+            var inputBytesForCompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");
-            var outputCompressionBytes = LZW.LZW.Compress(inpuBytesForCompression);
-            File.WriteAllBytes(args[0] + ".zipped", outputCompressionBytes);
-
+            (var bytesAfterBWT, var matrixIndexCompress) = Encode(inputBytesForCompression);
+            var outputCompressionBytesWithBWT = Compress(bytesAfterBWT, matrixIndexCompress);
+            var outputCompressionBytesWithoutBWT = Compress(inputBytesForCompression);
+            if (outputCompressionBytesWithBWT.Length < outputCompressionBytesWithoutBWT.Length)
+            {
+                File.WriteAllBytes(args[0] + ".zipped", outputCompressionBytesWithBWT);
+            }
+            else
+            {
+                File.WriteAllBytes(args[0] + ".zipped", outputCompressionBytesWithoutBWT);
+            }
             WriteLine("Done.");
 
-            WriteLine($"Compression ratio: {((double)inpuBytesForCompression.Length / outputCompressionBytes.Length)}");
+            WriteLine($"Compression ratio with BWT: {((double)inputBytesForCompression.Length / outputCompressionBytesWithBWT.Length)}");
+            WriteLine($"Compression ratio without BWT: {((double)inputBytesForCompression.Length / outputCompressionBytesWithoutBWT.Length)}");
+
             break;
 
-        case "-u":
+        case "--u":
             var inputBytesForDecompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");
-            var outputDecompressionBytes = LZW.LZW.Decompress(inputBytesForDecompression);
+            (var outputDecompressionBytes, var matrixIndexDecompress) = Decompress(inputBytesForDecompression);
+            if (matrixIndexDecompress != -1)
+            {
+                outputDecompressionBytes = Decode(outputDecompressionBytes, matrixIndexDecompress);
+            }
             File.WriteAllBytes(args[0].Replace(".zipped", ""), outputDecompressionBytes);
             WriteLine("Done.");
             break;

@@ -2,9 +2,9 @@ namespace LZW;
 
 public static class LZW
 {
-    internal static int maximumSizeOfNumberOfCodes = 65536;
+    internal static int MaximumSizeOfNumberOfCodes = 65536;
 
-    public static byte[] Compress(byte[] bytes)
+    public static byte[] Compress(byte[] bytes, int matrixIndex = -1)
     {
         if (bytes.Length == 0)
         {
@@ -12,6 +12,7 @@ public static class LZW
         }
 
         var buffer = new ByteBuffer();
+        buffer.SetMatrixIndex(matrixIndex);
         var trie = new Trie();
         trie.InitializationOfTrie();
 
@@ -32,7 +33,7 @@ public static class LZW
                 buffer.Add(trie.GetValueOfElement(input));
                 trie.Add(newElement);
 
-                if (trie.Size == maximumSizeOfNumberOfCodes)
+                if (trie.Size == MaximumSizeOfNumberOfCodes)
                 {
                     currentMaximumSizeOfNumberOfCodes = 512;
                     buffer.CurrentBitLength = 9;
@@ -60,13 +61,14 @@ public static class LZW
         return buffer.ResultBytes.ToArray();
     }
 
-    public static byte[] Decompress(byte[] bytes)
+    public static (byte[], int matrixIndex) Decompress(byte[] bytes)
     {
         if (bytes.Length == 0)
         {
             throw new ArgumentException("File empty.");
         }
 
+        var matrixIndex = BitConverter.ToInt32(new byte[] { bytes[0], bytes[1], bytes[2], bytes[3] });
         var result = new List<byte>();
         var dictionary = DecompressUtils.InitializationOfDictionary();
         var codes = DecompressUtils.GetAllCodes(bytes);
@@ -76,7 +78,7 @@ public static class LZW
 
         for (int i = 0; i < codes.Count; ++i)
         {
-            if (dictionarySize == maximumSizeOfNumberOfCodes)
+            if (dictionarySize == MaximumSizeOfNumberOfCodes)
             {
                 dictionary = DecompressUtils.InitializationOfDictionary();
                 dictionarySize = 256;
@@ -111,6 +113,6 @@ public static class LZW
             ++dictionarySize;
         }
 
-        return result.ToArray();
+        return (result.ToArray(), matrixIndex);
     }
 }

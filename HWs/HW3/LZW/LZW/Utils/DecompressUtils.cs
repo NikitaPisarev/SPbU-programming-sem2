@@ -9,9 +9,9 @@ internal static class DecompressUtils
         var dictionarySize = 256;
         var currentMaximumSizeOfNumberOfCodes = 512;
 
-        for (int i = 0; i < bytes.Length - 1; ++i)
+        for (int i = 4; i < bytes.Length - 1; ++i)
         {
-            if (dictionarySize == LZW.maximumSizeOfNumberOfCodes)
+            if (dictionarySize == LZW.MaximumSizeOfNumberOfCodes)
             {
                 dictionarySize = 256;
                 currentMaximumSizeOfNumberOfCodes = 512;

@@ -34,6 +34,11 @@ internal class ByteBuffer
         LentghOfBitsInBuffer = 0;
     }
 
+    public void SetMatrixIndex(int matrixIndex)
+    {
+        ResultBytes.AddRange(BitConverter.GetBytes(matrixIndex));
+    }
+
     private byte[] _convertToBits(int phrase)
     {
         var bits = new byte[CurrentBitLength];
