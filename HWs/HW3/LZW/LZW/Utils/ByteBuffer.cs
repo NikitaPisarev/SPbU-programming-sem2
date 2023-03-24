@@ -12,9 +12,10 @@ internal class ByteBuffer
 
     private const int _byteSize = 8;
 
-    public void Add(int code)
+    public bool Add(int phrase)
     {
-        var bits = _convertToBits(code);
+        var isNewCodeAdd = false;
+        var bits = _convertToBits(phrase);
 
         foreach (var i in bits)
         {
@@ -23,8 +24,10 @@ internal class ByteBuffer
             if (_lentghOfBitsInBuffer == _byteSize)
             {
                 AddInResultBytes();
+                isNewCodeAdd = true;
             }
         }
+        return isNewCodeAdd;
     }
 
     public void AddInResultBytes()
@@ -34,13 +37,13 @@ internal class ByteBuffer
         _lentghOfBitsInBuffer = 0;
     }
 
-    private byte[] _convertToBits(int code)
+    private byte[] _convertToBits(int phrase)
     {
         var bits = new byte[CurrentBitLength];
         for (int i = CurrentBitLength - 1; i >= 0; --i)
         {
-            bits[i] = (byte)(code % 2);
-            code /= 2;
+            bits[i] = (byte)(phrase % 2);
+            phrase /= 2;
         }
 
         return bits;
