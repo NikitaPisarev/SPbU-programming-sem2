@@ -1,6 +1,10 @@
 namespace LZW;
 
-public class DictionaryCodesBuffer
+
+/// <summary>
+/// 
+/// </summary>
+public class SequenceCodesBuffer
 {
     public List<int> Codes { get; private set; } = new();
 

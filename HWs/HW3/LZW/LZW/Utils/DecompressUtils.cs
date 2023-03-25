@@ -4,7 +4,7 @@ internal static class DecompressUtils
 {
     internal static List<int> GetAllCodes(byte[] bytes)
     {
-        var buffer = new DictionaryCodesBuffer();
+        var buffer = new SequenceCodesBuffer();
 
         var dictionarySize = 256;
         var currentMaximumSizeOfNumberOfCodes = 512;
@@ -30,7 +30,7 @@ internal static class DecompressUtils
             }
         }
 
-        if (buffer.LentghOfBitsInBuffer + DictionaryCodesBuffer.ByteSize == buffer.CurrentBitLength)
+        if (buffer.LentghOfBitsInBuffer + SequenceCodesBuffer.ByteSize == buffer.CurrentBitLength)
         {
             buffer.Add(bytes[^1]);
         }
