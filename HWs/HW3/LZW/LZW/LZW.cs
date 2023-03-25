@@ -1,9 +1,20 @@
 namespace LZW;
 
+/// <summary>
+/// Class of archiver based on LZW algorithm.
+/// </summary>
 public static class LZW
 {
     public static int MaximumSizeOfNumberOfCodes = 65536;
 
+    /// <summary>
+    /// Method for data compression.
+    /// </summary>
+    /// <param name="bytes"> Byte array for compression. </param>
+    /// <param name="matrixIndex"> The number of the end of the set. </param>
+    /// <returns> Compressed byte array. </returns>
+    /// <exception cref="ArgumentNullException"> Byte array can't be null. </exception>
+    /// <exception cref="ArgumentException"> Byte array can't be empty. </exception>
     public static byte[] Compress(byte[] bytes, int matrixIndex = -1)
     {
         if (bytes is null)
@@ -66,6 +77,13 @@ public static class LZW
         return buffer.ResultBytes.ToArray();
     }
 
+    /// <summary>
+    /// Method for data decompression.
+    /// </summary>
+    /// <param name="bytes"> Byte array for decompression. </param>
+    /// <returns> Returns a pair - decompressed bytes and the number of the end of the set. </returns>
+    /// <exception cref="ArgumentNullException"> Byte array can't be null. </exception>
+    /// <exception cref="ArgumentException"> Byte array can't be empty. </exception>
     public static (byte[], int matrixIndex) Decompress(byte[] bytes)
     {
         if (bytes is null)
@@ -80,7 +98,7 @@ public static class LZW
 
         var matrixIndex = BitConverter.ToInt32(new byte[] { bytes[0], bytes[1], bytes[2], bytes[3] });
         var result = new List<byte>();
-        var dictionary = DecompressUtils.InitializationOfDictionary();
+        var dictionary = DecompressUtils.CreateAndInitializationOfDictionary();
         var codes = DecompressUtils.GetAllCodes(bytes);
         var dictionarySize = 256;
         var dictionaryCounter = 256;
@@ -90,7 +108,7 @@ public static class LZW
         {
             if (dictionarySize == MaximumSizeOfNumberOfCodes)
             {
-                dictionary = DecompressUtils.InitializationOfDictionary();
+                dictionary = DecompressUtils.CreateAndInitializationOfDictionary();
                 dictionarySize = 256;
                 dictionaryCounter = 256;
             }

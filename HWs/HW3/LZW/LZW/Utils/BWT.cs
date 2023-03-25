@@ -1,6 +1,9 @@
 ﻿namespace BWT;
 
-internal class RotationsComparer : IComparer<int>
+/// <summary>
+/// Comparator for comparing sequences corresponding to their start index.
+/// </summary>
+public class RotationsComparer : IComparer<int>
 {
     public RotationsComparer(byte[] bytes)
     {
@@ -26,10 +29,21 @@ internal class RotationsComparer : IComparer<int>
     }
 }
 
-public class BWT
+/// <summary>
+/// Class containing the BWT transformation
+/// </summary>
+public static class BWT
 {
     private const int _alphabetSize = 256;
 
+    /// <summary>
+    /// Method for encoding BWT.
+    /// </summary>
+    /// <param name="bytes"> A array of bytes to encode. </param>
+    /// <returns> Returns a pair - the converted set and the number of the end of the set. </returns>
+    /// <exception cref="ArgumentNullException"> Byte array can't be null. </exception>
+    /// <exception cref="ArgumentException"> Byte array can't be empty. </exception>
+    /// 
     public static (byte[], int) Encode(byte[] bytes)
     {
         if (bytes is null)
@@ -65,6 +79,14 @@ public class BWT
         return (result.ToArray(), lineEndNumber);
     }
 
+    /// <summary>
+    /// Method for decoding BWT.
+    /// </summary>
+    /// <param name="bytes"> A array of bytes to deccode. </param>
+    /// <param name="matrixIndex"> The number of the end of the set. </param>
+    /// <returns> Returns decoded set. </returns>
+    /// <exception cref="ArgumentNullException"> Byte array can't be null. </exception>
+    /// <exception cref="ArgumentException"> Byte array can't be empty. </exception>
     public static byte[] Decode(byte[] bytes, int matrixIndex)
     {
         if (bytes is null)

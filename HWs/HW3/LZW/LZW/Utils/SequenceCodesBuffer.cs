@@ -1,21 +1,40 @@
 namespace LZW;
 
-
 /// <summary>
-/// 
+/// A class for a bit buffer for receiving codes from bytes converted using LZW.
 /// </summary>
 public class SequenceCodesBuffer
 {
+    /// <summary>
+    /// The resulting set of codes.
+    /// </summary>
     public List<int> Codes { get; private set; } = new();
 
+    /// <summary>
+    /// The current length of the bits for the code.
+    /// </summary>
     public int CurrentBitLength { get; set; } = 9;
 
+    /// <summary>
+    /// Code buffer.
+    /// </summary>
     public int Buffer { get; set; } = 0;
 
+    /// <summary>
+    /// Buffer Length.
+    /// </summary>
     public int LentghOfBitsInBuffer = 0;
 
+    /// <summary>
+    /// Byte size.
+    /// </summary>
     public const int ByteSize = 8;
 
+    /// <summary>
+    /// Adding a byte in code buffer.
+    /// </summary>
+    /// <param name="oneByte"> Byte. </param>
+    /// <returns> True - if a new code has been added, otherwise False. </returns>
     public bool Add(byte oneByte)
     {
         var isNewPhrase = false;
@@ -34,6 +53,9 @@ public class SequenceCodesBuffer
         return isNewPhrase;
     }
 
+    /// <summary>
+    /// Adding a buffer in result codes.
+    /// </summary>
     public void AddInCodes()
     {
         Codes.Add(Buffer);
@@ -41,9 +63,14 @@ public class SequenceCodesBuffer
         LentghOfBitsInBuffer = 0;
     }
 
+
+    /// <summary>
+    /// Adding the last "incomplete" byte.
+    /// </summary>
+    /// <param name="oneByte"> Byte. </param>
     public void AddLastByteInCodes(byte oneByte)
     {
-        var bits = RepresentationLastByteInCodes(oneByte);
+        var bits = _representationLastByteInCodes(oneByte);
 
         foreach (var i in bits)
         {
@@ -56,7 +83,7 @@ public class SequenceCodesBuffer
         }
     }
 
-    private byte[] RepresentationLastByteInCodes(byte oneByte)
+    private byte[] _representationLastByteInCodes(byte oneByte)
     {
         var bits = new List<byte>();
         while (oneByte > 0)

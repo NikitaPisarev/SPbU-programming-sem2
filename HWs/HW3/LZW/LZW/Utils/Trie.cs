@@ -150,6 +150,9 @@ internal class Trie
         return currentNode.Value;
     }
 
+    /// <summary>
+    /// Initializing the trie with the first 256 bytes
+    /// </summary>
     public void InitializationOfTrie()
     {
         for (int i = 0; i < 256; ++i)
