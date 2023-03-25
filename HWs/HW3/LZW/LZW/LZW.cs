@@ -15,7 +15,7 @@ public static class LZW
     /// <returns> Compressed byte array. </returns>
     /// <exception cref="ArgumentNullException"> Byte array can't be null. </exception>
     /// <exception cref="ArgumentException"> Byte array can't be empty. </exception>
-    public static byte[] Compress(byte[] bytes, int matrixIndex = -1)
+    public static byte[] Compress(byte[]? bytes, int matrixIndex = -1)
     {
         if (bytes is null)
         {
@@ -84,7 +84,7 @@ public static class LZW
     /// <returns> Returns a pair - decompressed bytes and the number of the end of the set. </returns>
     /// <exception cref="ArgumentNullException"> Byte array can't be null. </exception>
     /// <exception cref="ArgumentException"> Byte array can't be empty. </exception>
-    public static (byte[], int matrixIndex) Decompress(byte[] bytes)
+    public static (byte[], int matrixIndex) Decompress(byte[]? bytes)
     {
         if (bytes is null)
         {
