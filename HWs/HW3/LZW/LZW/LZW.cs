@@ -2,7 +2,7 @@ namespace LZW;
 
 public static class LZW
 {
-    internal static int MaximumSizeOfNumberOfCodes = 65536;
+    public static int MaximumSizeOfNumberOfCodes = 65536;
 
     public static byte[] Compress(byte[] bytes, int matrixIndex = -1)
     {
