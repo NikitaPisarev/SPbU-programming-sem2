@@ -29,6 +29,11 @@ else
     switch (args[1])
     {
         case "--c":
+            if (!File.Exists(args[0]))
+            {
+                WriteLine("File not found.");
+                return;
+            }
             var inputBytesForCompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");
@@ -51,6 +56,18 @@ else
             break;
 
         case "--u":
+            if (!File.Exists(args[0]))
+            {
+                WriteLine("File not found.");
+                return;
+            }
+
+            if (!args[0].Contains(".zipped"))
+            {
+                WriteLine("This is not a compressed file.");
+                return;
+            }
+
             var inputBytesForDecompression = File.ReadAllBytes(args[0]);
 
             WriteLine("Processing...");

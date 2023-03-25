@@ -32,6 +32,16 @@ public class BWT
 
     public static (byte[], int) Encode(byte[] bytes)
     {
+        if (bytes is null)
+        {
+            throw new ArgumentNullException(nameof(bytes), "can't be null.");
+        }
+
+        if (bytes.Length == 0)
+        {
+            throw new ArgumentException(nameof(bytes), "can't be empty.");
+        }
+
         var rotations = new int[bytes.Length];
         for (int i = 0; i < rotations.Length; ++i)
         {
@@ -57,9 +67,14 @@ public class BWT
 
     public static byte[] Decode(byte[] bytes, int matrixIndex)
     {
+        if (bytes is null)
+        {
+            throw new ArgumentNullException(nameof(bytes), "can't be null.");
+        }
+
         if (bytes.Length == 0)
         {
-            throw new ArgumentException(nameof(bytes), "Cannot be empty.");
+            throw new ArgumentException(nameof(bytes), "can't be empty.");
         }
 
         var byteFrequencies = new int[_alphabetSize];

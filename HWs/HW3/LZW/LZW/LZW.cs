@@ -6,6 +6,11 @@ public static class LZW
 
     public static byte[] Compress(byte[] bytes, int matrixIndex = -1)
     {
+        if (bytes is null)
+        {
+            throw new ArgumentNullException(nameof(bytes), "can't be null.");
+        }
+
         if (bytes.Length == 0)
         {
             throw new ArgumentException("File empty.");
@@ -63,6 +68,11 @@ public static class LZW
 
     public static (byte[], int matrixIndex) Decompress(byte[] bytes)
     {
+        if (bytes is null)
+        {
+            throw new ArgumentNullException(nameof(bytes), "can't be null.");
+        }
+
         if (bytes.Length == 0)
         {
             throw new ArgumentException("File empty.");
