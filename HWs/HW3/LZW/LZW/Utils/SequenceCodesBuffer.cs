@@ -63,7 +63,6 @@ public class SequenceCodesBuffer
         LentghOfBitsInBuffer = 0;
     }
 
-
     /// <summary>
     /// Adding the last "incomplete" byte.
     /// </summary>
