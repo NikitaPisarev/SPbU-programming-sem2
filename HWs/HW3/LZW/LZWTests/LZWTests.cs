@@ -3,7 +3,7 @@ namespace LZWTests;
 using static LZW.LZW;
 using static BWT.BWT;
 
-public class Tests
+public class LZWTests
 {
     [TestCase("../../../Files/txt.txt")]
     [TestCase("../../../Files/mp4.mp4")]

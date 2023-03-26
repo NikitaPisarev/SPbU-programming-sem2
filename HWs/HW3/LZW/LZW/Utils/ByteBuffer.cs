@@ -3,7 +3,7 @@ namespace LZW;
 /// <summary>
 /// A class for a bit buffer for receiving codes and filling them in LZW.
 /// </summary>
-internal class ByteBuffer
+public class ByteBuffer
 {
     /// <summary>
     /// The resulting set of compressed bytes.
