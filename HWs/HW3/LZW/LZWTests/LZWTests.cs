@@ -5,9 +5,15 @@ using static BWT.BWT;
 
 public class LZWTests
 {
-    [TestCase("../../../Files/txt.txt")]
-    [TestCase("../../../Files/mp4.mp4")]
-    [TestCase("../../../Files/exe.exe")]
+    private static IEnumerable<TestCaseData> Files
+        => new TestCaseData[]
+    {
+        new TestCaseData("../../../Files/txt.txt"),
+        new TestCaseData("../../../Files/mp4.mp4"),
+        new TestCaseData("../../../Files/exe.exe"),
+    };
+
+    [TestCaseSource(nameof(Files))]
     public void CompressAndDecompressWithoutBWT_CorrectFile_CorrectDecompressedFile(string filePath)
     {
         var expected = File.ReadAllBytes(filePath);
@@ -17,9 +23,7 @@ public class LZWTests
         Assert.That(actual, Is.EqualTo(expected));
     }
 
-    [TestCase("../../../Files/txt.txt")]
-    [TestCase("../../../Files/mp4.mp4")]
-    [TestCase("../../../Files/exe.exe")]
+    [TestCaseSource(nameof(Files))]
     public void CompressAndDecompressWithBWT_CorrectFile_CorrectDecompressedFile(string filePath)
     {
         var expected = File.ReadAllBytes(filePath);
