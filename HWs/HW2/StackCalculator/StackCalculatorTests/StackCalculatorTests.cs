@@ -2,7 +2,7 @@ namespace StackCalculatorTests;
 
 using StackCalculator;
 
-public class Tests
+public class StackCalculatorTests
 {
     private static IEnumerable<TestCaseData> Stacks
         => new TestCaseData[]
