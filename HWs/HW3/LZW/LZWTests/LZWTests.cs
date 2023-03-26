@@ -14,7 +14,7 @@ public class LZWTests
         var compressFile = Compress(expected);
         (var actual, var _) = Decompress(compressFile);
 
-        Assert.That(expected, Is.EqualTo(actual));
+        Assert.That(actual, Is.EqualTo(expected));
     }
 
     [TestCase("../../../Files/txt.txt")]
@@ -30,21 +30,21 @@ public class LZWTests
 
         var actual = Decode(afterDecompression, matrixIndexDecode);
 
-        Assert.That(expected, Is.EqualTo(actual));
+        Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
     public void Compress_EmptyFile_ArgumentExceptionReturned()
     {
-        var expected = File.ReadAllBytes("../../../Files/empty.txt");
-        Assert.Throws<ArgumentException>(() => Compress(expected));
+        var filePath = File.ReadAllBytes("../../../Files/empty.txt");
+        Assert.Throws<ArgumentException>(() => Compress(filePath));
     }
 
     [Test]
     public void Decompress_EmptyFile_ArgumentExceptionReturned()
     {
-        var expected = File.ReadAllBytes("../../../Files/empty.txt");
-        Assert.Throws<ArgumentException>(() => Decompress(expected));
+        var filePath = File.ReadAllBytes("../../../Files/empty.txt");
+        Assert.Throws<ArgumentException>(() => Decompress(filePath));
     }
 
     [Test]

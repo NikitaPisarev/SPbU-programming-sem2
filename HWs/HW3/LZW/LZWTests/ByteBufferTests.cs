@@ -14,7 +14,7 @@ public class ByteBufferTests
         buffer.SetMatrixIndex(15);
         var actual = BitConverter.ToInt32(buffer.ResultBytes.ToArray());
 
-        Assert.That(expected, Is.EqualTo(actual));
+        Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -27,6 +27,6 @@ public class ByteBufferTests
         buffer.Add(23);
         var actual = (buffer.ResultBytes, buffer.LentghOfBitsInBuffer, buffer.Buffer);
 
-        Assert.That(expected, Is.EqualTo(actual));
+        Assert.That(actual, Is.EqualTo(expected));
     }
 }
