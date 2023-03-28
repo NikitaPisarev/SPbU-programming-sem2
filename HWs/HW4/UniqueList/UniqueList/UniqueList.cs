@@ -1,5 +1,8 @@
 namespace Lists;
 
+/// <summary>
+/// List data structure that does not store duplicate value.
+/// </summary>
 public class UniqueList : List
 {
     private bool _contains(int value)
@@ -18,6 +21,11 @@ public class UniqueList : List
         return currentNode.Value == value;
     }
 
+    /// <summary>
+    /// Method of adding an element to the list.
+    /// </summary>
+    /// <param name="value"> The value. </param>
+    /// <exception cref="ElementAlreadyExistException"> This element is already in the list. </exception>
     public override void Add(int value)
     {
         if (_contains(value))
@@ -28,6 +36,13 @@ public class UniqueList : List
         base.Add(value);
     }
 
+    /// <summary>
+    /// The method replaces the element under the index "index" with the value "value".
+    /// </summary>
+    /// <param name="value"> The value. </param>
+    /// <param name="index"> The index. </param>
+    /// <returns> If the replacement is successful, it returns True, otherwise False. </returns>
+    /// <exception cref="ElementAlreadyExistException"> This element is already in the list. </exception>
     public override bool Replace(int value, int index)
     {
         if (_contains(value))
@@ -38,6 +53,10 @@ public class UniqueList : List
         return base.Replace(value, index);
     }
 
+    /// <summary>
+    /// Method for getting all the items in the list.
+    /// </summary>
+    /// <returns> Array of elements. </returns>
     public int[] GetList()
     {
         var result = new List<int>();

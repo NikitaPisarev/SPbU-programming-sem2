@@ -2,7 +2,7 @@ namespace ListsTest;
 
 using Lists;
 
-public class ListTests
+public class ListsTests
 {
     private static IEnumerable<TestCaseData> Lists
         => new TestCaseData[]
@@ -39,9 +39,9 @@ public class ListTests
     {
         list.Add(20);
         list.Add(30);
+        list.Remove(20);
+        list.Remove(30);
 
-        Assert.IsTrue(list.Remove(20));
-        Assert.IsTrue(list.Remove(30));
         Assert.IsTrue(list.IsEmpty());
     }
 
@@ -50,7 +50,8 @@ public class ListTests
     {
         list.Add(20);
         Assert.IsTrue(list.Replace(30, 0));
-        Assert.IsTrue(list.Remove(30));
+        list.Remove(30);
+        Assert.IsTrue(list.IsEmpty());
     }
 
     [TestCaseSource(nameof(Lists))]

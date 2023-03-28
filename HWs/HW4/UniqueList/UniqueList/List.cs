@@ -1,9 +1,18 @@
 namespace Lists;
 
+/// <summary>
+/// List, a data structure consisting of elements containing, in addition to their own data, links to the next list element.
+/// </summary>
 public class List
 {
+    /// <summary>
+    /// Starting node of the list.
+    /// </summary>
     protected Node? Head = null;
 
+    /// <summary>
+    /// List node.
+    /// </summary>
     protected class Node
     {
         public Node(int value, Node? next)
@@ -12,14 +21,29 @@ public class List
             this.Next = next;
         }
 
+        /// <summary>
+        /// Pointer to the next node.
+        /// </summary>
         public Node? Next { get; set; }
 
+        /// <summary>
+        /// Node Value.
+        /// </summary>
         public int Value { get; set; }
     }
 
+    /// <summary>
+    /// Method of adding an element to the list.
+    /// </summary>
+    /// <param name="value"> The value. </param>
     public virtual void Add(int value) => Head = new Node(value, Head);
 
-    public virtual bool Remove(int value)
+    /// <summary>
+    /// Method of deleting an element by value.
+    /// </summary>
+    /// <param name="value"> The value. </param>
+    /// <exception cref="RemoveNonexistentElementException"> This element is not in the list. </exception>
+    public virtual void Remove(int value)
     {
         if (Head is null)
         {
@@ -48,9 +72,14 @@ public class List
         {
             previousNode.Next = currentNode.Next;
         }
-        return true;
     }
 
+    /// <summary>
+    /// The method replaces the element under the index "index" with the value "value".
+    /// </summary>
+    /// <param name="value"> The value. </param>
+    /// <param name="index"> The index. </param>
+    /// <returns> If the replacement is successful, it returns True, otherwise False. </returns>
     public virtual bool Replace(int value, int index)
     {
         var currentNode = Head;
@@ -71,5 +100,9 @@ public class List
         return false;
     }
 
+    /// <summary>
+    /// The method checks if the list is empty.
+    /// </summary>
+    /// <returns> If the list is empty returns True, otherwise False. </returns>
     public bool IsEmpty() => Head is null;
 }

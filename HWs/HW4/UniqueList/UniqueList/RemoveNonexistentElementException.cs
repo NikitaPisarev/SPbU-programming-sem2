@@ -1,5 +1,8 @@
 namespace Lists;
 
+/// <summary>
+/// An exception occurs after an attempt to delete an element that does not exist.
+/// </summary>
 [Serializable]
 public class RemoveNonexistentElementException : InvalidOperationException
 {

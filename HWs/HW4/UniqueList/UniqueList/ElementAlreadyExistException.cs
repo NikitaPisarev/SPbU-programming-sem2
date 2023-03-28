@@ -1,5 +1,8 @@
 namespace Lists;
 
+/// <summary>
+/// An exception occurs after an attempt to add an element that already exists.
+/// </summary>
 [Serializable]
 public class ElementAlreadyExistException : InvalidOperationException
 {
