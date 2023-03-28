@@ -52,7 +52,6 @@ public class ListTests
         _list.Add(20);
         Assert.IsTrue(_list.Replace(30, 0));
         Assert.IsTrue(_list.Remove(30));
-
     }
 
     [Test]
