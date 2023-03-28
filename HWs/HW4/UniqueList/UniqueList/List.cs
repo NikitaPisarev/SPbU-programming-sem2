@@ -23,7 +23,7 @@ public class List
     {
         if (Head is null)
         {
-            return false;
+            throw new RemoveNonexistentElementException("This element is not in the list.");
         }
 
         Node? previousNode = null;
@@ -36,7 +36,7 @@ public class List
 
         if (currentNode.Value != value)
         {
-            return false;
+            throw new RemoveNonexistentElementException("This element is not in the list.");
         }
 
         /// The case when one node

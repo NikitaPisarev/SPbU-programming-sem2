@@ -30,13 +30,18 @@ public class ListTests
     }
 
     [Test]
+    public void Remove_NonexistentElement_RemoveNonexistentElementExceptionReturned()
+    {
+        Assert.Throws<RemoveNonexistentElementException>(() => _list.Remove(1));
+    }
+
+    [Test]
     public void AddAndRemove_Elements_CorrectElementsReturned()
     {
         _list.Add(20);
         _list.Add(30);
 
         Assert.IsTrue(_list.Remove(20));
-        Assert.IsFalse(_list.Remove(20));
         Assert.IsTrue(_list.Remove(30));
         Assert.IsTrue(_list.IsEmpty());
     }
