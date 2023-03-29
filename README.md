@@ -19,6 +19,9 @@ Repository for submitting assignments for the C# programming course at SPbU 📝
 #### Homework 4:
 - [Unique list](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW4/HWs/HW4/UniqueList)
 - [Parse tree](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW4/HWs/HW4/ParseTree)
+
+#### Homework 5:
+- [Routers](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW5/HWs/HW5/Routers)
 ## Run Locally
 
 To run a local copy, you must first have installed [.NET 7.0 (or higher) SDK](https://dotnet.microsoft.com/download/dotnet/7.0), and then follow these steps:
