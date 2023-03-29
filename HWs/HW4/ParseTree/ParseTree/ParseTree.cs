@@ -1,9 +1,18 @@
 namespace ParseTree;
 
+/// <summary>
+/// Math expression parse tree.
+/// </summary>
 public class ParseTree
 {
     private IParseTreeElement? _root;
 
+    /// <summary>
+    /// Filling the parse tree with math expression.
+    /// </summary>
+    /// <param name="expression"> The expression. </param>
+    /// <exception cref="ArgumentNullException" ></exception>
+    /// <exception cref="ArgumentException" > Incorrect expression. </exception>
     public void FillTree(string? expression)
     {
         if (expression is null)
@@ -75,8 +84,14 @@ public class ParseTree
         }
     }
 
+    /// <summary>
+    /// Parse tree calculate.
+    /// </summary>
     public double Calculate() => _root!.Calculate();
 
+    /// <summary>
+    /// Parse tree output as an expression.
+    /// </summary>
     public void Print() => _root!.Print();
 
     private bool _bracketsBalance(string expression)
