@@ -12,19 +12,43 @@ if (args[0] == "help")
 
         Usage:
         -------------------------------------------
-        dotnet run "<expression>"
+        dotnet run <FilePath>
         -------------------------------------------
-
-        For example:
-
-        dotnet run "(* (+ 1 1) 2)"
-        -------------------------------------------
-        Output:
-        ( * ( + 1 1 ) 2 ) = 4
 
         """);
 }
 else
 {
-    Write(args[0]);
+    var parseTree = new ParseTree.ParseTree();
+
+    if (!File.Exists(args[0]))
+    {
+        Write("File not found.");
+        return;
+    }
+
+    var expression = File.ReadAllText(args[0]);
+    try
+    {
+        parseTree.FillTree(expression);
+    }
+    catch (Exception e) when (e is ArgumentException || e is ArgumentNullException)
+    {
+        Write(e.Message);
+        return;
+    }
+
+    double result = 0;
+    try
+    {
+        result = parseTree.Calculate();
+    }
+    catch (DivideByZeroException e)
+    {
+        Write(e.Message);
+        return;
+    }
+
+    parseTree.Print();
+    Write($"= {result}");
 }
