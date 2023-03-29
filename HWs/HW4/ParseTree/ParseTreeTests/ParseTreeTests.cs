@@ -45,16 +45,11 @@ public class Tests
         Assert.Throws<DivideByZeroException>(() => _parseTree.Calculate()); ;
     }
 
-    [Test]
-    public void FillTreeAndCalculate_IncorrectBrackets1_ArgumentException()
+    [TestCase(")* 5 10(")]
+    [TestCase("(* (5 10)))")]
+    public void FillTreeAndCalculate_IncorrectBrackets_ArgumentException(string expression)
     {
         Assert.Throws<ArgumentException>(() => _parseTree.FillTree(")* 5 10("));
-    }
-
-    [Test]
-    public void FillTreeAndCalculate_IncorrectBrackets2_ArgumentException()
-    {
-        Assert.Throws<ArgumentException>(() => _parseTree.FillTree("(* (5 10)))"));
     }
 
     [Test]
@@ -63,16 +58,11 @@ public class Tests
         Assert.Throws<ArgumentException>(() => _parseTree.FillTree("(+ (* 1A5 2) 2)"));
     }
 
-    [Test]
-    public void FillTreeAndCalculate_IncorrectExpression1_ArgumentException()
+    [TestCase("2 + 2")]
+    [TestCase("2 + ")]
+    public void FillTreeAndCalculate_IncorrectExpression_ArgumentException(string expression)
     {
-        Assert.Throws<ArgumentException>(() => _parseTree.FillTree("2 + 2"));
-    }
-
-    [Test]
-    public void FillTreeAndCalculate_IncorrectExpression2_ArgumentException()
-    {
-        Assert.Throws<ArgumentException>(() => _parseTree.FillTree("+ 2"));
+        Assert.Throws<ArgumentException>(() => _parseTree.FillTree(expression));
     }
 
     [Test]
