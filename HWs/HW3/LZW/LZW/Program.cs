@@ -21,9 +21,10 @@ if (args[0] == "help")
 }
 else
 {
-    if (args.Length < 2)
+    if (args.Length != 2)
     {
-        throw new IOException("Argument(s) omitted. Use \"dotnet LZW.dll help\".");
+        Write("Argument(s) error. Use \"dotnet LZW.dll help\".");
+        return;
     }
 
     switch (args[1])
