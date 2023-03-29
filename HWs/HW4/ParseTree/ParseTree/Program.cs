@@ -2,7 +2,8 @@
 
 if (args.Length != 1)
 {
-    throw new IOException("Argument error. Use \"dotnet run help\".");
+    Write("Argument error. Use \"dotnet run help\".");
+    return;
 }
 
 if (args[0] == "help")
