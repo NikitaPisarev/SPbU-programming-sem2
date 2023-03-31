@@ -55,9 +55,7 @@ public static class ConfigurationGenerator
         }
 
         internal int FirstRouter { get; }
-
         internal int SecondRouter { get; }
-
         internal int Bandwidth { get; }
     }
 
