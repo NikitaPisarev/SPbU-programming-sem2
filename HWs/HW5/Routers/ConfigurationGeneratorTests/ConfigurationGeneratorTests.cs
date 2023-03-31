@@ -13,7 +13,7 @@ public class Tests
         """;
         var expected = """
         1: 2 (10), 3 (5)
-        """;
+        """.Replace("\r", "");
 
         var actual = ConfigurationGenerator.CreateOptimalConfiguration(network);
 
@@ -41,7 +41,7 @@ public class Tests
         6: 9 (11)
         7: 8 (30)
         8: 9 (15)
-        """;
+        """.Replace("\r", "");
 
         var actual = ConfigurationGenerator.CreateOptimalConfiguration(network);
 
