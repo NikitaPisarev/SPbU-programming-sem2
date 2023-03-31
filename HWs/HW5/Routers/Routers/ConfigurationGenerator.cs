@@ -34,7 +34,7 @@ public static class ConfigurationGenerator
             configuration.Add(currentMaximumEdge);
         }
 
-        return _buildConfigurationForFile(configuration);
+        return _buildConfigurationForFile(configuration, routersCount);
     }
 
     private class _edgeOfTheNetwork
@@ -96,12 +96,31 @@ public static class ConfigurationGenerator
         return (edges.ToArray(), routers.Count);
     }
 
-    private static string _buildConfigurationForFile(List<_edgeOfTheNetwork> edges)
+    private static string _buildConfigurationForFile(List<_edgeOfTheNetwork> edges, int routersCount)
     {
         var configuration = new StringBuilder();
-        foreach (var edge in edges)
+        var connectedRouters = new UniqueList();
+
+        for (int i = 1; i <= routersCount; ++i)
         {
-            configuration.Append($"{edge.FirstRouter}: {edge.SecondRouter} ({edge.Bandwidth})\r\n");
+            var line = new StringBuilder();
+            foreach (var edge in edges)
+            {
+                if (edge.FirstRouter == i && !connectedRouters.Contains(edge.SecondRouter))
+                {
+                    line.Append($" {edge.SecondRouter} ({edge.Bandwidth}),");
+                }
+                if (edge.SecondRouter == i && !connectedRouters.Contains(edge.FirstRouter))
+                {
+                    line.Append($" {edge.FirstRouter} ({edge.Bandwidth}),");
+                }
+            }
+
+            connectedRouters.Add(i);
+            if (line.ToString() != string.Empty)
+            {
+                configuration.Append($"{i}:").Append(line.Remove(line.Length - 1, 1)).Append("\r\n");
+            }
         }
         configuration.Remove(configuration.Length - 2, 2);
         return configuration.ToString();
