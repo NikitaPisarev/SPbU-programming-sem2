@@ -4,8 +4,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UniqueList;
 
+/// <summary>
+/// A class for building the optimal configuration of routers, which is the maximum spanning tree.
+/// </summary>
 public static class ConfigurationGenerator
 {
+    /// <summary>
+    /// Generation of the maximum spanning tree by the Prim's algorithm.
+    /// </summary>
+    /// <param name="network"> Initial network. </param>
+    /// <returns> Optimal network. </returns>
     public static string CreateOptimalConfiguration(string network)
     {
         if (network == string.Empty)
