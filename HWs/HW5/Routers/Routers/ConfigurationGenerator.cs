@@ -125,10 +125,10 @@ public static class ConfigurationGenerator
             connectedRouters.Add(i);
             if (line.ToString() != string.Empty)
             {
-                configuration.Append($"{i}:").Append(line.Remove(line.Length - 1, 1)).Append("\r\n");
+                configuration.Append($"{i}:").Append(line.Remove(line.Length - 1, 1)).Append("\n");
             }
         }
-        configuration.Remove(configuration.Length - 2, 2);
+        configuration.Remove(configuration.Length - 1, 1);
         return configuration.ToString();
     }
 }
