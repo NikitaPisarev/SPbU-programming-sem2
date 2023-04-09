@@ -122,8 +122,8 @@ public class Program
                         textForEncode = Console.ReadLine();
                     }
 
-                    var resultEncode = Encode(textForEncode);
-                    Console.WriteLine($"Converted text: {resultEncode.Item1}\nLine end number: {resultEncode.Item2}");
+                    (string encodedText, int index) resultEncode = Encode(textForEncode);
+                    Console.WriteLine($"Converted text: {resultEncode.encodedText}\nLine end number: {resultEncode.index}");
                     Console.Write("Don't want to see the reverse transformation? (Enter DECODE): ");
                     break;
 
@@ -148,7 +148,7 @@ public class Program
                         Console.Write("Try again: ");
                     }
 
-                    var resultDecode = Decode(textForDecode, indexMatrix);
+                    string resultDecode = Decode(textForDecode, indexMatrix);
 
                     Console.WriteLine($"The original line looked like this: {resultDecode}");
                     Console.Write("Do you want to encode a text? (Enter ENCODE): ");
