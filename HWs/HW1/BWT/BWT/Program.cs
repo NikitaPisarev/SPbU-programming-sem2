@@ -130,7 +130,7 @@ public class Program
                 case "decode":
                     Console.Write("Good! Enter your text: ");
                     string? textForDecode = Console.ReadLine();
-                    while (textForDecode == null || textForDecode == "")
+                    while (string.IsNullOrEmpty(textForDecode))
                     {
                         Console.WriteLine("Incorrect input!");
                         Console.WriteLine("The text cannot be empty.");
