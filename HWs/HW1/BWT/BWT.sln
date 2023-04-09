@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BWT", "BWT\BWT.csproj", "{F933186C-06CB-4AF8-93A8-AE5FEFB6E11A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BWTTests", "BWTTests\BWTTests.csproj", "{8DD9421D-0483-44B5-8946-FC0AFB1C3623}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F933186C-06CB-4AF8-93A8-AE5FEFB6E11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F933186C-06CB-4AF8-93A8-AE5FEFB6E11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F933186C-06CB-4AF8-93A8-AE5FEFB6E11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F933186C-06CB-4AF8-93A8-AE5FEFB6E11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD9421D-0483-44B5-8946-FC0AFB1C3623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD9421D-0483-44B5-8946-FC0AFB1C3623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD9421D-0483-44B5-8946-FC0AFB1C3623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD9421D-0483-44B5-8946-FC0AFB1C3623}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
