@@ -1,14 +1,46 @@
 namespace Game;
 using static System.Console;
+using System.Text;
+
+internal class Player
+{
+    public Player((int, int) coordinates, int health)
+    {
+        this.Coordinates = coordinates;
+        this.Health = health;
+    }
+
+    public Player(int health)
+        : this((0, 0), 100)
+    {
+        this.Health = health;
+    }
+
+    public Player((int, int) coordinates)
+        : this((0, 0), 100)
+    {
+        this.Coordinates = coordinates;
+    }
+
+    public Player()
+        : this((0, 0), 100)
+    {
+    }
+
+    public (int X, int Y) Coordinates { get; set; }
+
+    public int Health { get; set; }
+}
 
 public class Game
 {
     public Game(string filePath)
     {
+        string[] storage;
         try
         {
-            _map = File.ReadAllLines(filePath);
-            if (_map.Count() == 0 || _map[0].Count() == 0)
+            storage = File.ReadAllLines(filePath);
+            if (storage.Count() == 0 || storage[0].Count() == 0)
             {
                 throw new ArgumentException("File empty.");
             }
@@ -19,8 +51,14 @@ public class Game
             throw;
         }
 
-        _currentCoordinates = findTheStartingPoint();
-        if (_currentCoordinates == (0, 0))
+        for (int i = 0; i < storage.Count(); ++i)
+        {
+            _map.Add(new StringBuilder(storage[i]));
+        }
+
+        this._player = new Player(_findTheStartingPoint());
+
+        if (_player.Coordinates == (0, 0))
         {
             throw new ArgumentException("Inccorect map.");
         }
@@ -28,9 +66,9 @@ public class Game
         _drawTheMap();
     }
 
-    private (int X, int Y) _currentCoordinates = (0, 0);
+    private List<StringBuilder> _map = new List<StringBuilder>();
 
-    private string[] _map;
+    private Player _player;
 
     private enum _direction
     {
@@ -40,13 +78,13 @@ public class Game
         Right
     }
 
-    private (int, int) findTheStartingPoint()
+    private (int, int) _findTheStartingPoint()
     {
         var result = (0, 0);
         var isFreePoint = false;
         for (int i = 1; i < _map.Count(); ++i)
         {
-            for (int j = 1; j < _map[0].Count(); ++j)
+            for (int j = 1; j < _map[0].Length; ++j)
             {
                 if (_map[i][j] == ' ')
                 {
@@ -67,8 +105,50 @@ public class Game
 
     private void _drawTheMap()
     {
-        Write(string.Join("\n", _map));
-        _setPlayer((_currentCoordinates.X, _currentCoordinates.Y));
+        WriteLine(string.Join("\n", _map));
+        ForegroundColor = ConsoleColor.Green;
+        Write($"Health: {this._player.Health}");
+        _setPlayer((_player.Coordinates.X, _player.Coordinates.Y));
+    }
+
+    private void _useHilling()
+    {
+        this._player.Health += 10;
+
+        if (this._player.Health > 25 && this._player.Health <= 75)
+        {
+            ForegroundColor = ConsoleColor.Yellow;
+        }
+
+        if (this._player.Health > 75)
+        {
+            ForegroundColor = ConsoleColor.Green;
+        }
+        _changeHealthPoints();
+    }
+
+    private void _takeDamage()
+    {
+        this._player.Health -= 25;
+
+        if (this._player.Health <= 25)
+        {
+            ForegroundColor = ConsoleColor.Red;
+        }
+
+        if (this._player.Health > 25 && this._player.Health <= 75)
+        {
+            ForegroundColor = ConsoleColor.Yellow;
+        }
+
+        _changeHealthPoints();
+    }
+
+    private void _changeHealthPoints()
+    {
+        SetCursorPosition(_map[0].Length, _map.Count());
+        WriteLine($"\rHealth: {this._player.Health}     ");
+        SetCursorPosition(_player.Coordinates.X, _player.Coordinates.Y);
     }
 
     private void _move(_direction direction)
@@ -77,61 +157,86 @@ public class Game
         switch (direction)
         {
             case _direction.Left:
-                _setPlayer((_currentCoordinates.X - 1, _currentCoordinates.Y));
+                _setPlayer((_player.Coordinates.X - 1, _player.Coordinates.Y));
                 break;
             case _direction.Right:
-                _setPlayer((_currentCoordinates.X + 1, _currentCoordinates.Y));
+                _setPlayer((_player.Coordinates.X + 1, _player.Coordinates.Y));
                 break;
             case _direction.Up:
-                _setPlayer((_currentCoordinates.X, _currentCoordinates.Y - 1));
+                _setPlayer((_player.Coordinates.X, _player.Coordinates.Y - 1));
                 break;
             case _direction.Down:
-                _setPlayer((_currentCoordinates.X, _currentCoordinates.Y + 1));
+                _setPlayer((_player.Coordinates.X, _player.Coordinates.Y + 1));
                 break;
         }
     }
+
     private void _setPlayer((int, int) newPosition)
     {
         SetCursorPosition(newPosition.Item1, newPosition.Item2);
+        _map[newPosition.Item2][newPosition.Item1] = ' ';
         Write("@");
         SetCursorPosition(newPosition.Item1, newPosition.Item2);
-        this._currentCoordinates = newPosition;
+        this._player.Coordinates = newPosition;
     }
 
-    public void OnLeft(object? sender, EventArgs args)
+    private void _gameOver()
     {
-        if (_map[_currentCoordinates.Y][_currentCoordinates.X - 1] == ' ')
+        Console.Clear();
+        WriteLine("YOU DIED");
+    }
+
+    private bool _chooseAction(_direction direction, char point)
+    {
+        switch (point)
         {
-            _move(_direction.Left);
+            case 'h':
+                _useHilling();
+                _move(direction);
+                break;
+
+            case '!':
+                _takeDamage();
+                if (_player.Health <= 0)
+                {
+                    _gameOver();
+                    return false;
+                }
+                _move(direction);
+                break;
+
+            case ' ':
+                _move(direction);
+                break;
         }
+        return true;
     }
 
-    public void OnRight(object? sender, EventArgs args)
+    public bool OnLeft(object? sender, EventArgs args)
     {
-        if (_map[_currentCoordinates.Y][_currentCoordinates.X + 1] == ' ')
-        {
-            _move(_direction.Right);
-        }
+        return _chooseAction(_direction.Left, _map[_player.Coordinates.Y][_player.Coordinates.X - 1]);
     }
 
-    public void OnUp(object? sender, EventArgs args)
+    public bool OnRight(object? sender, EventArgs args)
     {
-        if (_map[_currentCoordinates.Y - 1][_currentCoordinates.X] == ' ')
-        {
-            _move(_direction.Up);
-        }
+        return _chooseAction(_direction.Right, _map[_player.Coordinates.Y][_player.Coordinates.X + 1]);
     }
 
-    public void OnDown(object? sender, EventArgs args)
+    public bool OnUp(object? sender, EventArgs args)
     {
-        if (_map[_currentCoordinates.Y + 1][_currentCoordinates.X] == ' ')
-        {
-            _move(_direction.Down);
-        }
+        return _chooseAction(_direction.Up, _map[_player.Coordinates.Y - 1][_player.Coordinates.X]);
     }
 
-    public void Exit(object? sender, EventArgs args)
+    public bool OnDown(object? sender, EventArgs args)
     {
-        SetCursorPosition(_map[0].Count(), _map.Count());
+        return _chooseAction(_direction.Down, _map[_player.Coordinates.Y + 1][_player.Coordinates.X]);
+    }
+
+    public bool Exit(object? sender, EventArgs args)
+    {
+        Console.Clear();
+        Console.ResetColor();
+        Write("Good luck!");
+        return false;
     }
 }

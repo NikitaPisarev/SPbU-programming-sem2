@@ -1,5 +1,7 @@
 namespace Game;
 
+public delegate bool EventHandler<EventArgs>(object sender, EventArgs e);
+
 public class EventLoop
 {
     public event EventHandler<EventArgs>? LeftHandler;
@@ -23,37 +25,36 @@ public class EventLoop
                 case ConsoleKey.LeftArrow:
                     if (LeftHandler is not null)
                     {
-                        LeftHandler(this, EventArgs.Empty);
+                        isContinue = LeftHandler(this, EventArgs.Empty);
                     }
                     break;
 
                 case ConsoleKey.RightArrow:
                     if (RightHandler is not null)
                     {
-                        RightHandler(this, EventArgs.Empty);
+                        isContinue = RightHandler(this, EventArgs.Empty);
                     }
                     break;
 
                 case ConsoleKey.UpArrow:
                     if (UpHandler is not null)
                     {
-                        UpHandler(this, EventArgs.Empty);
+                        isContinue = UpHandler(this, EventArgs.Empty);
                     }
                     break;
 
                 case ConsoleKey.DownArrow:
                     if (DownHandler is not null)
                     {
-                        DownHandler(this, EventArgs.Empty);
+                        isContinue = DownHandler(this, EventArgs.Empty);
                     }
                     break;
 
                 default:
                     if (ExitHandler is not null)
                     {
-                        ExitHandler(this, EventArgs.Empty);
+                        isContinue = ExitHandler(this, EventArgs.Empty);
                     }
-                    isContinue = false;
                     break;
             }
         }
