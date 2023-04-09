@@ -21,3 +21,4 @@ eventLoop.DownHandler += game.OnDown;
 eventLoop.ExitHandler += game.Exit;
 
 eventLoop.Run();
+Console.ReadKey();
