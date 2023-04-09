@@ -5,8 +5,8 @@ Repository for submitting assignments for the C# programming course at SPbU 📝
 
 ## Homeworks
 #### Homework 1:
-- [Insertion sort](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW1/HWs/HW1/InsertionSort)
-- [Burrows-Wheeler transform](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW1/HWs/HW1/BWT)
+- [Insertion sort](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/main/HWs/HW1/InsertionSort)
+- [Burrows-Wheeler transform](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/main/HWs/HW1/BWT)
 
 #### Homework 2:
 - [Stack calculator](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW2/HWs/HW2/StackCalculator)
