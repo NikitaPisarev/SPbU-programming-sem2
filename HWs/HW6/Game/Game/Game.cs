@@ -1,4 +1,5 @@
 namespace Game;
+
 using static System.Console;
 using System.Text;
 
@@ -66,16 +67,29 @@ public class Game
         _drawTheMap();
     }
 
+    public string[] GetMapAndPlayer()
+    {
+        _map[_player.Coordinates.Y][_player.Coordinates.X] = '@';
+        var result = new string[_map.Count + 1];
+        for (int i = 0; i < _map.Count; i++)
+        {
+            result[i] = _map[i].ToString();
+        }
+        result[_map.Count] = $"Health: {_player.Health}";
+        _map[_player.Coordinates.Y][_player.Coordinates.X] = ' ';
+        return result;
+    }
+
     private List<StringBuilder> _map = new List<StringBuilder>();
 
     private Player _player;
 
-    private enum _direction
+    public enum Direction
     {
-        Up,
         Left,
+        Right,
+        Up,
         Down,
-        Right
     }
 
     private (int, int) _findTheStartingPoint()
@@ -151,21 +165,21 @@ public class Game
         SetCursorPosition(_player.Coordinates.X, _player.Coordinates.Y);
     }
 
-    private void _move(_direction direction)
+    private void _move(Direction direction)
     {
         Write(' ');
         switch (direction)
         {
-            case _direction.Left:
+            case Direction.Left:
                 _setPlayer((_player.Coordinates.X - 1, _player.Coordinates.Y));
                 break;
-            case _direction.Right:
+            case Direction.Right:
                 _setPlayer((_player.Coordinates.X + 1, _player.Coordinates.Y));
                 break;
-            case _direction.Up:
+            case Direction.Up:
                 _setPlayer((_player.Coordinates.X, _player.Coordinates.Y - 1));
                 break;
-            case _direction.Down:
+            case Direction.Down:
                 _setPlayer((_player.Coordinates.X, _player.Coordinates.Y + 1));
                 break;
         }
@@ -186,8 +200,17 @@ public class Game
         WriteLine("YOU DIED");
     }
 
-    private bool _chooseAction(_direction direction, char point)
+    private bool _chooseAction(Direction direction)
     {
+        char point = direction switch
+        {
+            Direction.Left => _map[_player.Coordinates.Y][_player.Coordinates.X - 1],
+            Direction.Right => _map[_player.Coordinates.Y][_player.Coordinates.X + 1],
+            Direction.Up => _map[_player.Coordinates.Y - 1][_player.Coordinates.X],
+            Direction.Down => _map[_player.Coordinates.Y + 1][_player.Coordinates.X],
+            _ => throw new ArgumentException(),
+        };
+
         switch (point)
         {
             case 'h':
@@ -214,22 +237,22 @@ public class Game
 
     public bool OnLeft(object? sender, EventArgs args)
     {
-        return _chooseAction(_direction.Left, _map[_player.Coordinates.Y][_player.Coordinates.X - 1]);
+        return _chooseAction(Direction.Left);
     }
 
     public bool OnRight(object? sender, EventArgs args)
     {
-        return _chooseAction(_direction.Right, _map[_player.Coordinates.Y][_player.Coordinates.X + 1]);
+        return _chooseAction(Direction.Right);
     }
 
     public bool OnUp(object? sender, EventArgs args)
     {
-        return _chooseAction(_direction.Up, _map[_player.Coordinates.Y - 1][_player.Coordinates.X]);
+        return _chooseAction(Direction.Up);
     }
 
     public bool OnDown(object? sender, EventArgs args)
     {
-        return _chooseAction(_direction.Down, _map[_player.Coordinates.Y + 1][_player.Coordinates.X]);
+        return _chooseAction(Direction.Down);
     }
 
     public bool Exit(object? sender, EventArgs args)
