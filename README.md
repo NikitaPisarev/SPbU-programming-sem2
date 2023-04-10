@@ -26,6 +26,8 @@ Repository for submitting assignments for the C# programming course at SPbU 📝
 #### Homework 6:
 - [Map, Filter and Fold](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW6/HWs/HW6/MapFilterFold)
 - [Game](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW6/HWs/HW6/Game)
+#### Homework 7:
+- [Calculator with GUI](https://github.com/NikitaPisarev/SPbU-programming-sem2/tree/HW7/HWs/HW7)
 ## Run Locally
 
 To run a local copy, you must first have installed [.NET 7.0 (or higher) SDK](https://dotnet.microsoft.com/download/dotnet/7.0), and then follow these steps:
