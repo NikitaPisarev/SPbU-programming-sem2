@@ -1,19 +1,46 @@
 namespace Game;
 
+/// <summary>
+/// Instantiation of the EventHandler template, allowing to return True or False.
+/// </summary>
+/// <param name="sender"> The sender. </param>
+/// <param name="e"> Event parameters. </param>
+/// <returns> True if the game continues, otherwise False. </returns>
 public delegate bool EventHandler<EventArgs>(object sender, EventArgs e);
 
+/// <summary>
+/// The processing loop of user actions.
+/// </summary>
 public class EventLoop
 {
+    /// <summary>
+    /// Subject of left arrow press.
+    /// </summary>
     public event EventHandler<EventArgs>? LeftHandler;
 
+    /// <summary>
+    /// Subject of right arrow press.
+    /// </summary>
     public event EventHandler<EventArgs>? RightHandler;
 
+    /// <summary>
+    /// Subject of up arrow press.
+    /// </summary>
     public event EventHandler<EventArgs>? UpHandler;
 
+    /// <summary>
+    /// Subject of down arrow press.
+    /// </summary>
     public event EventHandler<EventArgs>? DownHandler;
 
+    /// <summary>
+    /// Subject of pressing the other buttons. Exit from the game.
+    /// </summary>
     public event EventHandler<EventArgs>? ExitHandler;
 
+    /// <summary>
+    /// Method to run observing actions of user.
+    /// </summary>
     public void Run()
     {
         var isContinue = true;

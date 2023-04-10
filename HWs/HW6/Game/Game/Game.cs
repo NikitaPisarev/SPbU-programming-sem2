@@ -3,6 +3,9 @@ namespace Game;
 using static System.Console;
 using System.Text;
 
+/// <summary>
+/// Player Type.
+/// </summary>
 internal class Player
 {
     public Player((int, int) coordinates, int health)
@@ -28,13 +31,26 @@ internal class Player
     {
     }
 
+    /// <summary>
+    /// Current coordinates of the player on the map.
+    /// </summary>
     public (int X, int Y) Coordinates { get; set; }
 
+    /// <summary>
+    /// Current Player Health Points.
+    /// </summary>
     public int Health { get; set; }
 }
 
+/// <summary>
+/// The class responsible for the mechanics of the game.
+/// </summary>
 public class Game
 {
+    /// <summary>
+    /// Draws a map from a file, searches for and puts the player at the starting point.
+    /// </summary>
+    /// <param name="filePath"> The File path.</param>
     public Game(string filePath)
     {
         string[] storage;
@@ -67,6 +83,10 @@ public class Game
         _drawTheMap();
     }
 
+    /// <summary>
+    /// Method of obtaining the current state of the map and the player.
+    /// </summary>
+    /// <returns> Array of rows, where the row is one horizontal line of the map. </returns>
     public string[] GetMapAndPlayer()
     {
         _map[_player.Coordinates.Y][_player.Coordinates.X] = '@';
@@ -84,6 +104,9 @@ public class Game
 
     private Player _player;
 
+    /// <summary>
+    /// Enumerating directions.
+    /// </summary>
     public enum Direction
     {
         Left,
@@ -235,26 +258,45 @@ public class Game
         return true;
     }
 
+    /// <summary>
+    /// Left event handler.
+    /// </summary>
+    /// <returns> True if the game continues, otherwise False. </returns>
     public bool OnLeft(object? sender, EventArgs args)
     {
         return _chooseAction(Direction.Left);
     }
 
+    /// <summary>
+    /// Right event handler.
+    /// </summary>
+    /// <returns> True if the game continues, otherwise False. </returns>
     public bool OnRight(object? sender, EventArgs args)
     {
         return _chooseAction(Direction.Right);
     }
 
+    /// <summary>
+    /// Up event handler.
+    /// </summary>
+    /// <returns> True if the game continues, otherwise False. </returns>
     public bool OnUp(object? sender, EventArgs args)
     {
         return _chooseAction(Direction.Up);
     }
 
+    /// <summary>
+    /// Down event handler.
+    /// </summary>
+    /// <returns> True if the game continues, otherwise False. </returns>
     public bool OnDown(object? sender, EventArgs args)
     {
         return _chooseAction(Direction.Down);
     }
 
+    /// <summary>
+    /// Exit from the game event handler.
+    /// </summary>
     public bool Exit(object? sender, EventArgs args)
     {
         Console.Clear();
