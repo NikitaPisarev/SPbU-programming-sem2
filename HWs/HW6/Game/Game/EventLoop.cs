@@ -46,7 +46,7 @@ public class EventLoop
         var isContinue = true;
         while (isContinue)
         {
-            var key = Console.ReadKey();
+            var key = Console.ReadKey(true);
             switch (key.Key)
             {
                 case ConsoleKey.LeftArrow:
@@ -77,7 +77,7 @@ public class EventLoop
                     }
                     break;
 
-                default:
+                case ConsoleKey.Escape:
                     if (ExitHandler is not null)
                     {
                         isContinue = ExitHandler(this, EventArgs.Empty);
