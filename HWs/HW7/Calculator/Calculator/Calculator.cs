@@ -2,10 +2,16 @@
 
 using System.ComponentModel;
 
+/// <summary>
+/// A class that implements a calculator with 5 operations: '+', '-', '*', '/', '+/-'.
+/// </summary>
 public class Calculator : INotifyPropertyChanged
 {
     private string _display = "0";
 
+    /// <summary>
+    /// String representation of a number that is displayed somewhere.
+    /// </summary>
     public string Display
     {
         get
@@ -26,6 +32,9 @@ public class Calculator : INotifyPropertyChanged
 
     private _states _currentState = _states.NumberTyping;
 
+    /// <summary>
+    /// A data binding event that synchronizes the linked data at the time of the change.
+    /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void _notifyPropertyChanged(string propertyName = "")
@@ -40,8 +49,18 @@ public class Calculator : INotifyPropertyChanged
         Error,
     }
 
+    /// <summary>
+    /// Add an number to the calculator.
+    /// </summary>
+    /// <param name="operation"> The number must be a digit. </param>
+    /// <exception cref="ArgumentException"></exception>
     public void AddNumberInCalcultor(char number)
     {
+        if (!char.IsDigit(number))
+        {
+            throw new ArgumentException();
+        }
+
         switch (_currentState)
         {
             case _states.Error:
@@ -66,8 +85,18 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Add an operation to the calculator.
+    /// </summary>
+    /// <param name="operation"> The operation can be "+ - * / × ÷". </param>
+    /// <exception cref="ArgumentException"></exception>
     public void AddOperationInCalcultor(char operation)
     {
+        if (!"+-/*×÷".Contains(operation))
+        {
+            throw new ArgumentException();
+        }
+
         switch (_currentState)
         {
             case _states.NumberTyping:
@@ -106,6 +135,9 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Calculate the current expression in the calculator.
+    /// </summary>
     public void Calculate()
     {
         double result = 0;
@@ -152,6 +184,9 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Change the sign of the current value.
+    /// </summary>
     public void ChangeSign()
     {
         if (_currentState != _states.Error && Display != "0")
@@ -167,6 +202,9 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Clear the calculator.
+    /// </summary>
     public void ClearCalculator()
     {
         Display = "0";

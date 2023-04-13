@@ -1,9 +1,15 @@
 namespace Calculator;
 
+/// <summary>
+/// Form for the Calculator application
+/// </summary>
 public partial class CalculatorForm : Form
 {
     private Calculator calculator = new();
 
+    /// <summary>
+    /// Initializing components in the form.
+    /// </summary>
     public CalculatorForm()
     {
         InitializeComponent();
