@@ -1,0 +1,99 @@
+namespace CalculatorTests;
+
+using Calculator;
+
+public class Tests
+{
+    private Calculator _calculator = new();
+
+    [TearDown]
+    public void Teardown()
+    {
+        _calculator.ClearCalculator();
+    }
+
+    private void _addMathExpressionInCalculator(string expression)
+    {
+        foreach (var i in expression)
+        {
+            if (char.IsDigit(i))
+            {
+                _calculator.AddNumberInCalcultor(i);
+            }
+            if ("+-*/".Contains(i))
+            {
+                _calculator.AddOperationInCalcultor(i);
+            }
+            if (i == '=')
+            {
+                _calculator.Calculate();
+            }
+        }
+    }
+
+    [TestCase("2 + 2 +", "4")]
+    [TestCase("3 * 9 + 18 =", "45")]
+    [TestCase("3 - 66 =", "-63")]
+    public void Calculate_BasicExpression_CorrectAnswerReturned(string expression, string expected)
+    {
+        _addMathExpressionInCalculator(expression);
+        var actual = _calculator.Display;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase("14 / 2 * 9 + 0 - 14 / 7 + 3 =", "10")]
+    [TestCase("100 * 141 - 3 + 12 / 3 - 4115 + 14 =", "602")]
+    public void Calculate_LongExpression_CorrectAnswerReturned(string expression, string expected)
+    {
+        _addMathExpressionInCalculator(expression);
+        var actual = _calculator.Display;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Calculate_ChooseOperation_CorrectAnswer()
+    {
+        var expected = "5";
+
+        _addMathExpressionInCalculator("10 +*/- 5 =");
+        var actual = _calculator.Display;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Calculate_ManyEquals_CorrectAnswer()
+    {
+        var expected = "3";
+
+        _addMathExpressionInCalculator("10 - 7 ====");
+        var actual = _calculator.Display;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Calculate_DivisionByZero_ErrorReturned()
+    {
+        var expected = "Error";
+
+        _addMathExpressionInCalculator("1 / 0 =");
+        var actual = _calculator.Display;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase("2 + 2 +", "-4")]
+    [TestCase("3", "-3")]
+    [TestCase("-66 =", "66")]
+    public void ChangeSign_Number_CorrectAnswer(string expression, string expected)
+    {
+        _addMathExpressionInCalculator(expression);
+        _calculator.ChangeSign();
+        var actual = _calculator.Display;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+}

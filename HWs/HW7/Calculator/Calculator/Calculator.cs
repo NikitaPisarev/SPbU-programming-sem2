@@ -185,9 +185,11 @@ public class Calculator : INotifyPropertyChanged
             case '-':
                 return double.Parse(_intermediateValue) - double.Parse(Display);
 
+            case '*':
             case '×':
                 return double.Parse(_intermediateValue) * double.Parse(Display);
 
+            case '/':
             case '÷':
                 if (Math.Abs(double.Parse(Display)) < 0.001)
                 {
