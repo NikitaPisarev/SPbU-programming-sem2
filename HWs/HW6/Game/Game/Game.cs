@@ -114,6 +114,10 @@ public class Game
         Up,
         Down,
     }
+    private const int _treatmentPoints = 10;
+
+    private const int _damagePoints = 25;
+
 
     private (int, int) _findTheStartingPoint()
     {
@@ -150,14 +154,14 @@ public class Game
 
     private void _useHilling()
     {
-        this._player.Health += 10;
+        this._player.Health += _treatmentPoints;
 
-        if (this._player.Health > 25 && this._player.Health <= 75)
+        if (this._player.Health > _damagePoints && this._player.Health <= _damagePoints * 3)
         {
             ForegroundColor = ConsoleColor.Yellow;
         }
 
-        if (this._player.Health > 75)
+        if (this._player.Health > _damagePoints * 3)
         {
             ForegroundColor = ConsoleColor.Green;
         }
@@ -166,14 +170,14 @@ public class Game
 
     private void _takeDamage()
     {
-        this._player.Health -= 25;
+        this._player.Health -= _damagePoints;
 
-        if (this._player.Health <= 25)
+        if (this._player.Health <= _damagePoints)
         {
             ForegroundColor = ConsoleColor.Red;
         }
 
-        if (this._player.Health > 25 && this._player.Health <= 75)
+        if (this._player.Health > _damagePoints && this._player.Health <= _damagePoints * 3)
         {
             ForegroundColor = ConsoleColor.Yellow;
         }
