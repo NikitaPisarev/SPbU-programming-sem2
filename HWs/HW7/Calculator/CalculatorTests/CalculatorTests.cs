@@ -96,4 +96,16 @@ public class Tests
 
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void AddNumber_IncorrectNumber_ArgumentExceptionReturned()
+    {
+        Assert.Throws<ArgumentException>(() => _calculator.AddNumberInCalcultor('A'));
+    }
+
+    [Test]
+    public void AddOperation_IncorrectOperation_ArgumentExceptionReturned()
+    {
+        Assert.Throws<ArgumentException>(() => _calculator.AddOperationInCalcultor('5'));
+    }
 }
