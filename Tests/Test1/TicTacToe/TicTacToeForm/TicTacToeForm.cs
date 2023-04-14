@@ -1,34 +1,32 @@
-namespace TicTacToe
+namespace TicTacToe;
+public partial class TicTacToeForm : Form
 {
-    public partial class TicTacToeForm : Form
+    private TicTacToe _ticTacToe = new();
+
+    public TicTacToeForm()
     {
-        private TicTacToe _ticTacToe = new();
+        InitializeComponent();
 
-        public TicTacToeForm()
+        display.DataBindings.Add("Text", _ticTacToe, "Display", true, DataSourceUpdateMode.OnPropertyChanged);
+    }
+
+    private void OnButtonClick(object sender, EventArgs e)
+    {
+        var button = (Button)sender;
+
+        button.Text = _ticTacToe.AddNewElementInCells(button.TabIndex - 1);
+
+        if (display.Text == "РџРѕР±РµРґРёР» РїРµСЂРІС‹Р№ РёРіСЂРѕРє! (X)" || display.Text == "РџРѕР±РµРґРёР» РІС‚РѕСЂРѕР№ РёРіСЂРѕРє!(O)" || display.Text == "РќРёС‡СЊСЏ!")
         {
-            InitializeComponent();
-
-            display.DataBindings.Add("Text", _ticTacToe, "Display", true, DataSourceUpdateMode.OnPropertyChanged);
+            _disableAllButtons();
         }
+    }
 
-        private void OnButtonClick(object sender, EventArgs e)
+    private void _disableAllButtons()
+    {
+        foreach (var i in buttons)
         {
-            var button = (Button)sender;
-
-            button.Text = _ticTacToe.AddNewElementInCells(button.TabIndex);
-
-            if (display.Text == "Победил первый игрок! (X)" || display.Text == "Победил второй игрок! (O)" || display.Text == "Ничья!")
-            {
-                _disableAllButtons();
-            }
-        }
-
-        private void _disableAllButtons()
-        {
-            foreach(var i in buttons)
-            {
-                i.Enabled = false;
-            }
+            i.Enabled = false;
         }
     }
 }
