@@ -47,9 +47,9 @@ public class TicTacToe : INotifyPropertyChanged
         switch (_currentState)
         {
             case _states.firstPlayerMove:
-                if (_cells[numberCell - 1] is null)
+                if (_cells[numberCell] is null)
                 {
-                    _cells[numberCell - 1] = "X";
+                    _cells[numberCell] = "X";
                     ++_currentCellsSize;
                     Display = "Ход второго игрока (O)";
                     _checkTheEndOfGame();
@@ -58,13 +58,13 @@ public class TicTacToe : INotifyPropertyChanged
                 }
                 else
                 {
-                    return _cells[numberCell - 1];
+                    return _cells[numberCell];
                 }
 
             case _states.secondPlayerMove:
-                if (_cells[numberCell - 1] is null)
+                if (_cells[numberCell] is null)
                 {
-                    _cells[numberCell - 1] = "O";
+                    _cells[numberCell] = "O";
                     ++_currentCellsSize;
                     Display = "Ход первого игрока (X)";
                     _checkTheEndOfGame();
@@ -73,7 +73,7 @@ public class TicTacToe : INotifyPropertyChanged
                 }
                 else
                 {
-                    return _cells[numberCell - 1];
+                    return _cells[numberCell];
                 }
 
             default: throw new ArgumentException();
