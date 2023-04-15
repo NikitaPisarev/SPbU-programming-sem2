@@ -17,7 +17,14 @@ public class StackArray : IStack
     /// <inheritdoc/>
     public void Push(double value)
     {
-        stack.Insert(length, value);
+        if (length == stack.Count)
+        {
+            stack.Add(value);
+        }
+        else
+        {
+            stack[length] = value;
+        }
         ++length;
     }
 
