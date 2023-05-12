@@ -33,7 +33,7 @@ public class ByteBuffer
     /// <param name="phrase"> Phrase.</param>
     public void Add(int phrase)
     {
-        var bits = _convertToBits(phrase);
+        var bits = ConvertToBits(phrase);
 
         foreach (var i in bits)
         {
@@ -65,7 +65,7 @@ public class ByteBuffer
         ResultBytes.AddRange(BitConverter.GetBytes(matrixIndex));
     }
 
-    private byte[] _convertToBits(int phrase)
+    private byte[] ConvertToBits(int phrase)
     {
         var bits = new byte[CurrentBitLength];
         for (int i = CurrentBitLength - 1; i >= 0; --i)

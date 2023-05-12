@@ -10,12 +10,12 @@ if (args[0] == "help")
         Usage:
         To compress the file, use the "--c" key:
         -------------------------------------------
-        dotnet run <File path> -with
+        dotnet run <File path> --c
         -------------------------------------------
 
         To decompress the file, use the "--u" key:
         -------------------------------------------
-        dotnet run <File path> -u
+        dotnet run <File path> --u
         -------------------------------------------
         """);
 }
@@ -77,7 +77,7 @@ else
             {
                 outputDecompressionBytes = Decode(outputDecompressionBytes, matrixIndexDecompress);
             }
-            File.WriteAllBytes(args[0].Replace(".zipped", ""), outputDecompressionBytes);
+            File.WriteAllBytes(args[0].Substring(0, args[0].Length - 7), outputDecompressionBytes);
             WriteLine("Done.");
             break;
 
