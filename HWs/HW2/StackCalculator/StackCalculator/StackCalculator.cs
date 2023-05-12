@@ -12,15 +12,15 @@ public class StackCalculator
 
     private readonly IStack _stack;
 
-    private static bool IsZero(double number)
+    private static bool IsZero(int number)
     {
         return Math.Abs(number) < 0.0001;
     }
 
     private void Operations(string sign)
     {
-        double firstElement = 0;
-        double secondElement = 0;
+        int firstElement = 0;
+        int secondElement = 0;
 
         try
         {
@@ -62,7 +62,7 @@ public class StackCalculator
     /// </summary>
     /// <param name="expression"> Expression in reverse Polish notation. </param>
     /// <returns> Value of expression. </returns>
-    public double CalculateExpression(string? expression)
+    public int CalculateExpression(string? expression)
     {
         if (expression == null)
         {
@@ -83,8 +83,8 @@ public class StackCalculator
             }
             else
             {
-                double number = 0;
-                if (!double.TryParse(element, out number))
+                int number = 0;
+                if (!int.TryParse(element, out number))
                 {
                     throw new ArgumentException("Incorrect expression.");
                 }
@@ -92,7 +92,7 @@ public class StackCalculator
             }
         }
 
-        double result = 0;
+        int result = 0;
         try
         {
             result = _stack.Pop();

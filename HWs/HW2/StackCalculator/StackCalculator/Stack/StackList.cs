@@ -7,26 +7,26 @@ public class StackList : IStack
 {
     public StackList()
     {
-        this.stack = new LinkedList<double>();
+        this.stack = new LinkedList<int>();
     }
 
-    private LinkedList<double> stack;
+    private LinkedList<int> stack;
 
     /// <inheritdoc/>
-    public void Push(double value)
+    public void Push(int value)
     {
         stack.AddFirst(value);
     }
 
     /// <inheritdoc/>
-    public double Pop()
+    public int Pop()
     {
         if (IsEmpty())
         {
             throw new InvalidOperationException("Can't to Pop() from empty stack.");
         }
 
-        double result = stack.First();
+        int result = stack.First();
         stack.RemoveFirst();
 
         return result;

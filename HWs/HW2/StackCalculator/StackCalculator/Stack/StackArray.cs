@@ -7,42 +7,33 @@ public class StackArray : IStack
 {
     public StackArray()
     {
-        this.stack = new List<double>();
+        this.stack = new List<int>();
     }
 
-    private List<double> stack;
-
-    private int length = 0;
+    private List<int> stack;
 
     /// <inheritdoc/>
-    public void Push(double value)
+    public void Push(int value)
     {
-        if (length == stack.Count)
-        {
-            stack.Add(value);
-        }
-        else
-        {
-            stack[length] = value;
-        }
-        ++length;
+        stack.Add(value);
     }
 
     /// <inheritdoc/>
-    public double Pop()
+    public int Pop()
     {
         if (IsEmpty())
         {
             throw new InvalidOperationException("Can't to Pop() from empty stack.");
         }
 
-        --length;
-        return stack[length];
+        var upElement = stack[stack.Count - 1];
+        stack.RemoveAt(stack.Count - 1);
+        return upElement;
     }
 
     /// <inheritdoc/>
     public bool IsEmpty()
     {
-        return length == 0;
+        return stack.Count == 0;
     }
 }

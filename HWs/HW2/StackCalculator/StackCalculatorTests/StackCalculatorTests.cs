@@ -23,15 +23,11 @@ public class StackCalculatorTests
     }
 
     [TestCaseSource(nameof(Stacks))]
-    public void CalculateExpression_FractionalNumbers_CorrectAnswerReturned(StackCalculator stackCalculator)
+    public void CalculateExpression_FractionalNumbers_ExceptionReturned(StackCalculator stackCalculator)
     {
         var expression = "10.2 20.4 + 5 * 0 -";
-        var expected = 153;
-        var delta = 0.001;
 
-        var actual = stackCalculator.CalculateExpression(expression);
-
-        Assert.That(Math.Abs(expected - actual) < delta);
+        Assert.Throws<ArgumentException>(() => stackCalculator.CalculateExpression(expression));
     }
 
     [TestCaseSource(nameof(Stacks))]
