@@ -31,9 +31,25 @@ public class StackCalculatorTests
     }
 
     [TestCaseSource(nameof(Stacks))]
-    public void CalculateExpression_IncorrectExpression_ExceptionReturned(StackCalculator stackCalculator)
+    public void CalculateExpression_IncorrectExpression1_ExceptionReturned(StackCalculator stackCalculator)
+    {
+        var expression = "10 20 + 3 * 2";
+
+        Assert.Throws<ArgumentException>(() => stackCalculator.CalculateExpression(expression));
+    }
+
+    [TestCaseSource(nameof(Stacks))]
+    public void CalculateExpression_IncorrectExpression2_ExceptionReturned(StackCalculator stackCalculator)
     {
         var expression = "10 A + 3 *";
+
+        Assert.Throws<ArgumentException>(() => stackCalculator.CalculateExpression(expression));
+    }
+
+    [TestCaseSource(nameof(Stacks))]
+    public void CalculateExpression_IncorrectExpression3_ExceptionReturned(StackCalculator stackCalculator)
+    {
+        var expression = "10 2 + 3 %";
 
         Assert.Throws<ArgumentException>(() => stackCalculator.CalculateExpression(expression));
     }
