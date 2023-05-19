@@ -22,7 +22,7 @@ public class Calculator : INotifyPropertyChanged
         private set
         {
             _display = value;
-            _notifyPropertyChanged();
+            NotifyPropertyChanged();
         }
     }
 
@@ -30,19 +30,19 @@ public class Calculator : INotifyPropertyChanged
 
     private char _currentOperation = ' ';
 
-    private _states _currentState = _states.NumberTyping;
+    private States _currentState = States.NumberTyping;
 
     /// <summary>
     /// A data binding event that synchronizes the linked data at the time of the change.
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void _notifyPropertyChanged(string propertyName = "")
+    private void NotifyPropertyChanged(string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private enum _states
+    private enum States
     {
         NumberTyping,
         Operation,
@@ -63,8 +63,8 @@ public class Calculator : INotifyPropertyChanged
 
         switch (_currentState)
         {
-            case _states.Error:
-            case _states.NumberTyping:
+            case States.Error:
+            case States.NumberTyping:
                 if (Display == "0" || Display == "Error")
                 {
                     Display = number.ToString();
@@ -74,13 +74,13 @@ public class Calculator : INotifyPropertyChanged
                     Display += number;
                 }
 
-                _currentState = _states.NumberTyping;
+                _currentState = States.NumberTyping;
                 break;
 
-            case _states.Operation:
+            case States.Operation:
                 _intermediateValue = Display;
                 Display = number.ToString();
-                _currentState = _states.NumberTyping;
+                _currentState = States.NumberTyping;
                 break;
         }
     }
@@ -99,38 +99,38 @@ public class Calculator : INotifyPropertyChanged
 
         switch (_currentState)
         {
-            case _states.NumberTyping:
+            case States.NumberTyping:
                 if (_currentOperation == ' ')
                 {
                     _intermediateValue = Display;
                     _currentOperation = operation;
-                    _currentState = _states.Operation;
+                    _currentState = States.Operation;
                 }
                 else
                 {
                     try
                     {
-                        Display = _calculation().ToString();
+                        Display = Calculation().ToString();
                     }
                     catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
                     {
                         ClearCalculator();
                         Display = "Error";
-                        _currentState = _states.Error;
+                        _currentState = States.Error;
                         return;
                     }
 
                     _intermediateValue = Display;
                     _currentOperation = operation;
-                    _currentState = _states.Operation;
+                    _currentState = States.Operation;
                 }
                 break;
 
-            case _states.Operation:
+            case States.Operation:
                 _currentOperation = operation;
                 break;
 
-            case _states.Error:
+            case States.Error:
                 break;
         }
     }
@@ -144,38 +144,38 @@ public class Calculator : INotifyPropertyChanged
 
         switch (_currentState)
         {
-            case _states.Error:
-            case _states.NumberTyping:
+            case States.Error:
+            case States.NumberTyping:
                 if (_currentOperation != ' ')
                 {
                     try
                     {
-                        result = _calculation();
+                        result = Calculation();
                     }
                     catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
                     {
                         ClearCalculator();
                         Display = "Error";
-                        _currentState = _states.Error;
+                        _currentState = States.Error;
                         return;
                     }
 
                     Display = result.ToString();
                     _currentOperation = ' ';
-                    _currentState = _states.NumberTyping;
+                    _currentState = States.NumberTyping;
                 }
                 break;
 
-            case _states.Operation:
+            case States.Operation:
                 try
                 {
-                    result = _calculation();
+                    result = Calculation();
                 }
                 catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
                 {
                     ClearCalculator();
                     Display = "Error";
-                    _currentState = _states.Error;
+                    _currentState = States.Error;
                     return;
                 }
 
@@ -189,7 +189,7 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     public void ChangeSign()
     {
-        if (_currentState != _states.Error && Display != "0")
+        if (_currentState != States.Error && Display != "0")
         {
             if (Display[0] == '-')
             {
@@ -210,10 +210,10 @@ public class Calculator : INotifyPropertyChanged
         Display = "0";
         _intermediateValue = "0";
         _currentOperation = ' ';
-        _currentState = _states.NumberTyping;
+        _currentState = States.NumberTyping;
     }
 
-    private double _calculation()
+    private double Calculation()
     {
         switch (_currentOperation)
         {
