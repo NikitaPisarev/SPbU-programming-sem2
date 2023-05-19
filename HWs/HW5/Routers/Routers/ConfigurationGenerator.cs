@@ -21,7 +21,17 @@ public static class ConfigurationGenerator
             throw new ArgumentException("Network can't be empty.");
         }
 
-        (EdgeOfTheNetwork[] edges, int routersCount) = ParseNetwork(network);
+        EdgeOfTheNetwork[]? edges = null;
+        int routersCount = 0;
+
+        try
+        {
+            (edges, routersCount) = ParseNetwork(network);
+        }
+        catch (ArgumentException)
+        {
+            throw;
+        }
 
         var configuration = new List<EdgeOfTheNetwork>();
         var connectedRouters = new UniqueList();
@@ -82,6 +92,11 @@ public static class ConfigurationGenerator
 
         foreach (var routerInfo in network.Split("\n"))
         {
+            if (!IsCorrectLine(routerInfo))
+            {
+                throw new ArgumentException("Invalid network.");
+            }
+
             var dataMainRouter = routerInfo.Split(":");
             var mainRouter = int.Parse(dataMainRouter[0]);
 
@@ -131,4 +146,6 @@ public static class ConfigurationGenerator
         configuration.Remove(configuration.Length - 1, 1);
         return configuration.ToString();
     }
+    private static bool IsCorrectLine(string line)
+        => Regex.IsMatch(line, @"^\d+: (\d+ \(\d+\),? ?)+$");
 }
