@@ -5,6 +5,16 @@ namespace ParseTree;
 /// </summary>
 internal class Division : Operation
 {
+    /// <summary>
+    /// The constructor of the Division, with the addition of two operands.
+    /// </summary>
+    /// <param name="leftChild"> Left operand. </param>
+    /// <param name="rightChild"> Right operand </param>
+    public Division(IParseTreeElement leftChild, IParseTreeElement rightChild)
+        : base(leftChild, rightChild)
+    {
+    }
+
     private const double _delta = 0.001;
 
     /// <summary>
@@ -18,7 +28,7 @@ internal class Division : Operation
             throw new DivideByZeroException();
         }
 
-        return LeftChild!.Calculate() / RightChild!.Calculate();
+        return LeftChild.Calculate() / RightChild.Calculate();
     }
 
     /// <summary>

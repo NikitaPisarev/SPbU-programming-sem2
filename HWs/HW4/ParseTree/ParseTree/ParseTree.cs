@@ -52,27 +52,25 @@ public class ParseTree
             switch (tokens[currentIndex])
             {
                 case "*":
-                    newTreeElement = new Multiplication();
+                    newTreeElement = new Multiplication(AddTreeElement(), AddTreeElement());
                     break;
 
                 case "/":
-                    newTreeElement = new Division();
+                    newTreeElement = new Division(AddTreeElement(), AddTreeElement());
 
                     break;
                 case "+":
-                    newTreeElement = new Addition();
+                    newTreeElement = new Addition(AddTreeElement(), AddTreeElement());
 
                     break;
                 case "-":
-                    newTreeElement = new Subtraction();
+                    newTreeElement = new Subtraction(AddTreeElement(), AddTreeElement());
                     break;
 
                 default:
                     throw new ArgumentException("Incorrect expression.");
             }
 
-            newTreeElement.LeftChild = AddTreeElement();
-            newTreeElement.RightChild = AddTreeElement();
             return newTreeElement;
         }
 
