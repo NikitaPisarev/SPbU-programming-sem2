@@ -1,5 +1,11 @@
 ﻿using static System.Console;
 
+if (args.Length == 0 || (args.Length == 1 && args[0] != "help"))
+{
+    Write("Argument error. Use \"dotnet run help\".");
+    return 0;
+}
+
 if (args[0] == "help")
 {
     WriteLine(""""""
@@ -11,15 +17,10 @@ if (args[0] == "help")
     -------------------------------------------
     where, <FilePath1> is the path of the file where the initial configuration lies,
     <FilePath2> is the path of the file where the optimal configuration will be located.
+    
     """"""
     );
 
-    return 0;
-}
-
-if (args.Length < 2)
-{
-    Write("Argument error. Use \"dotnet run help\".");
     return 0;
 }
 
