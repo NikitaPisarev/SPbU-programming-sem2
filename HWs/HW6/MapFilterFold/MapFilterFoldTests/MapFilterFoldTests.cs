@@ -73,4 +73,14 @@ public class Tests
 
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void Fold_EmptyList_AccumulatorHasNotChanged()
+    {
+        var expected = 0;
+
+        var actual = Fold<string, int>(new List<string>() { }, 0, (acc, elem) => acc + elem.Length);
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }
