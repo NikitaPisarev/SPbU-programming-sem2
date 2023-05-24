@@ -54,7 +54,7 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     /// <param name="operation"> The number must be a digit. </param>
     /// <exception cref="ArgumentException"></exception>
-    public void AddNumberInCalcultor(char number)
+    public void AddNumberInCalculator(char number)
     {
         if (!char.IsDigit(number))
         {
