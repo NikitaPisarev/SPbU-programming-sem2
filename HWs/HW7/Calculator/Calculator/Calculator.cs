@@ -32,6 +32,8 @@ public class Calculator : INotifyPropertyChanged
 
     private States _currentState = States.NumberTyping;
 
+    private const double _delta = 0.0001;
+
     /// <summary>
     /// A data binding event that synchronizes the linked data at the time of the change.
     /// </summary>
@@ -229,7 +231,7 @@ public class Calculator : INotifyPropertyChanged
 
             case '/':
             case '÷':
-                if (Math.Abs(double.Parse(Display)) < 0.001)
+                if (Math.Abs(double.Parse(Display)) < _delta)
                 {
                     throw new DivideByZeroException();
                 }
