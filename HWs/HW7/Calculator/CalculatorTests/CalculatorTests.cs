@@ -12,7 +12,7 @@ public class Tests
         _calculator.ClearCalculator();
     }
 
-    private void _addMathExpressionInCalculator(string expression)
+    private void AddMathExpressionInCalculator(string expression)
     {
         foreach (var i in expression)
         {
