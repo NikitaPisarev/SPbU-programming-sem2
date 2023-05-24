@@ -18,7 +18,7 @@ public class Tests
         {
             if (char.IsDigit(i))
             {
-                _calculator.AddNumberInCalcultor(i);
+                _calculator.AddNumberInCalculator(i);
             }
             if ("+-*/".Contains(i))
             {
@@ -36,7 +36,7 @@ public class Tests
     [TestCase("3 - 66 =", "-63")]
     public void Calculate_BasicExpression_CorrectAnswerReturned(string expression, string expected)
     {
-        _addMathExpressionInCalculator(expression);
+        AddMathExpressionInCalculator(expression);
         var actual = _calculator.Display;
 
         Assert.That(actual, Is.EqualTo(expected));
@@ -46,7 +46,7 @@ public class Tests
     [TestCase("100 * 141 - 3 + 12 / 3 - 4115 + 14 =", "602")]
     public void Calculate_LongExpression_CorrectAnswerReturned(string expression, string expected)
     {
-        _addMathExpressionInCalculator(expression);
+        AddMathExpressionInCalculator(expression);
         var actual = _calculator.Display;
 
         Assert.That(actual, Is.EqualTo(expected));
@@ -57,7 +57,7 @@ public class Tests
     {
         var expected = "5";
 
-        _addMathExpressionInCalculator("10 +*/- 5 =");
+        AddMathExpressionInCalculator("10 +*/- 5 =");
         var actual = _calculator.Display;
 
         Assert.That(actual, Is.EqualTo(expected));
@@ -68,7 +68,7 @@ public class Tests
     {
         var expected = "3";
 
-        _addMathExpressionInCalculator("10 - 7 ====");
+        AddMathExpressionInCalculator("10 - 7 ====");
         var actual = _calculator.Display;
 
         Assert.That(actual, Is.EqualTo(expected));
@@ -79,7 +79,7 @@ public class Tests
     {
         var expected = "Error";
 
-        _addMathExpressionInCalculator("1 / 0 =");
+        AddMathExpressionInCalculator("1 / 0 =");
         var actual = _calculator.Display;
 
         Assert.That(actual, Is.EqualTo(expected));
@@ -90,7 +90,7 @@ public class Tests
     [TestCase("-66 =", "66")]
     public void ChangeSign_Number_CorrectAnswer(string expression, string expected)
     {
-        _addMathExpressionInCalculator(expression);
+        AddMathExpressionInCalculator(expression);
         _calculator.ChangeSign();
         var actual = _calculator.Display;
 
@@ -100,7 +100,7 @@ public class Tests
     [Test]
     public void AddNumber_IncorrectNumber_ArgumentExceptionReturned()
     {
-        Assert.Throws<ArgumentException>(() => _calculator.AddNumberInCalcultor('A'));
+        Assert.Throws<ArgumentException>(() => _calculator.AddNumberInCalculator('A'));
     }
 
     [Test]

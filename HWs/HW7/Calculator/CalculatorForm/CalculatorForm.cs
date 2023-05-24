@@ -21,7 +21,7 @@ public partial class CalculatorForm : Form
     {
         var button = (Button)sender;
 
-        calculator.AddNumberInCalcultor(button.Text.First());
+        calculator.AddNumberInCalculator(button.Text.First());
     }
 
     private void OnOperationButtonClick(object sender, EventArgs e)
